@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherGuard AI - Citizen AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            base: {
+              black: '#0A0A0A',
+              surface: '#FFFFFF',
+              mutedBg: '#F4F4F5',
+              border: '#E4E4E7',
+              text: '#18181B',
+              muted: '#71717A',
+            },
+            accent: {
+              blue: '#2563EB',
+              violet: '#7C3AED',
+              green: '#10B981',
+              yellow: '#FACC15',
+              orange: '#F97316',
+              red: '#DC2626',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom refined scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #E4E4E7;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #D4D4D8;
+    }
+  </style>
+</head>
+<body class="bg-base-surface text-base-text font-sans h-full antialiased flex flex-col overflow-hidden">
+
+  <!-- Top Global Bar (WeatherGuard AI persistent chrome in dark #0A0A0A) -->
+  <header class="h-14 bg-[#0A0A0A] text-white flex items-center justify-between px-6 border-b border-[#27272A] shrink-0 z-30">
+    <div class="flex items-center space-x-6">
+      <!-- Brand Logo & Name -->
+      <div class="flex items-center space-x-3">
+        <div class="w-8 h-8 rounded-lg bg-black border border-white/20 flex items-center justify-center p-1">
+          <svg viewBox="0 0 200 200" class="w-full h-full" fill="none">
+            <path d="M100 36L152 56V104C152 136 128 162 100 172C72 162 48 136 48 104V56L100 36Z" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round"/>
+            <path d="M68 114C78 98 90 98 100 114C110 130 122 130 132 114" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+            <path d="M76 92C84 80 92 80 100 92C108 104 116 104 124 92" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="100" cy="66" r="8" fill="#7C3AED"/>
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center space-x-2">
+            <span class="font-bold text-sm tracking-tight">WeatherGuard AI</span>
+            <span class="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-white/10 text-zinc-300 border border-white/10">Prototype</span>
+          </div>
+          <span class="text-[10px] text-zinc-400 font-mono hidden md:inline">SIH 2026 // Command Center</span>
+        </div>
+      </div>
+
+      <!-- Pipeline Stepper -->
+      <nav class="hidden lg:flex items-center space-x-2 text-[11px] font-mono tracking-wider pl-4 border-l border-zinc-800 text-zinc-400">
+        <span class="hover:text-white cursor-pointer transition">DETECT</span>
+        <span class="text-zinc-600">→</span>
+        <span class="hover:text-white cursor-pointer transition">TRACK</span>
+        <span class="text-zinc-600">→</span>
+        <span class="hover:text-white cursor-pointer transition">DOWNSCALE</span>
+        <span class="text-zinc-600">→</span>
+        <span class="hover:text-white cursor-pointer transition">VALIDATE</span>
+        <span class="text-zinc-600">→</span>
+        <span class="hover:text-white cursor-pointer transition">LOCALIZE</span>
+        <span class="text-zinc-600">→</span>
+        <span class="text-accent-violet font-semibold flex items-center gap-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-violet animate-pulse"></span>
+          EXPLAIN
+        </span>
+        <span class="text-zinc-600">→</span>
+        <span class="hover:text-white cursor-pointer transition">ALERT</span>
+      </nav>
+    </div>
+
+    <!-- Right Controls -->
+    <div class="flex items-center space-x-4">
+      <div class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-md px-2.5 py-1 text-xs">
+        <span class="w-2 h-2 rounded-full bg-accent-green"></span>
+        <span class="text-zinc-300 font-mono text-[11px]">Region: Maharashtra (MH-12)</span>
+      </div>
+      <div class="px-2 py-1 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-[10px] font-mono rounded">
+        SAMPLE DATA
+      </div>
+      <button class="relative p-1.5 text-zinc-400 hover:text-white transition rounded-md hover:bg-zinc-800" title="Alerts">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="absolute top-1 right-1 w-2 h-2 bg-accent-red rounded-full ring-2 ring-[#0A0A0A]"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Application Body Layout -->
+  <div class="flex flex-1 overflow-hidden relative">
+
+    <!-- Narrow Left Navigation (Dark #0A0A0A) -->
+    <aside class="w-16 md:w-56 bg-[#0A0A0A] border-r border-[#27272A] flex flex-col justify-between shrink-0 py-4 z-20">
+      <div class="space-y-1 px-2">
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          <span class="hidden md:inline">Command Center</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <span class="hidden md:inline">Anomalies</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span class="hidden md:inline">Time Machine</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          <span class="hidden md:inline">Impact Zones</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          <span class="hidden md:inline">Explainer</span>
+        </a>
+        
+        <!-- Active Nav Item: Citizen AI -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-zinc-900 text-white text-xs font-semibold border-l-2 border-accent-violet transition shadow-inner">
+          <div class="relative">
+            <svg class="w-4 h-4 text-accent-violet shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+            <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-accent-violet animate-ping"></span>
+            <span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-accent-violet"></span>
+          </div>
+          <span class="hidden md:inline text-white">Citizen AI</span>
+          <span class="hidden md:inline-block ml-auto text-[9px] bg-accent-violet/20 text-accent-violet font-mono px-1.5 py-0.5 rounded">v2.4</span>
+        </a>
+
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="hidden md:inline">Alerts</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-900 text-xs font-medium transition">
+          <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          <span class="hidden md:inline">Data & Validation</span>
+        </a>
+      </div>
+
+      <!-- Bottom Status in Sidebar -->
+      <div class="px-3 pt-4 border-t border-zinc-800 text-[11px] text-zinc-500 hidden md:block">
+        <div class="flex items-center justify-between mb-1">
+          <span class="font-mono text-[10px]">PHYSICS ENGINE</span>
+          <span class="text-accent-green font-mono text-[10px]">ONLINE</span>
+        </div>
+        <div class="text-[10px] text-zinc-400">ECMWF / IMD GFS coupled</div>
+      </div>
+    </aside>
+
+    <!-- Main Citizen AI Stage -->
+    <main class="flex-1 flex flex-col bg-white overflow-hidden">
+      
+      <!-- Screen Header with Subtitle & Language Toggle Bar -->
+      <div class="h-14 px-6 border-b border-base-border flex items-center justify-between bg-white shrink-0">
+        <div class="flex items-center space-x-3">
+          <div class="w-8 h-8 rounded-lg bg-purple-50 flex items-center justify-center border border-purple-100">
+            <svg class="w-4 h-4 text-accent-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-sm font-bold text-base-black tracking-tight">Citizen AI Assistant</h1>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-50 text-accent-violet border border-purple-200 font-medium">Explainable Model Interface</span>
+            </div>
+            <p class="text-[11px] text-base-muted">Plain-language meteorological guidance directly synthesized from downscaled simulations</p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <!-- Language Tabs: English | मराठी | हिंदी (Active in Violet #7C3AED) -->
+          <div class="inline-flex p-1 rounded-xl bg-base-mutedBg border border-base-border" role="tablist">
+            <button id="lang-en" class="px-3.5 py-1 text-xs font-semibold rounded-lg bg-accent-violet text-white shadow-sm transition-all" role="tab" aria-selected="true">
+              English
+            </button>
+            <button id="lang-mr" class="px-3.5 py-1 text-xs font-medium rounded-lg text-base-muted hover:text-base-black transition-all" role="tab" aria-selected="false">
+              मराठी
+            </button>
+            <button id="lang-hi" class="px-3.5 py-1 text-xs font-medium rounded-lg text-base-muted hover:text-base-black transition-all" role="tab" aria-selected="false">
+              हिंदी
+            </button>
+          </div>
+
+          <!-- Toggle Right Context Sidebar -->
+          <button id="toggle-context-btn" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border border-base-border bg-white hover:bg-zinc-50 text-base-text transition" title="Toggle context metadata panel">
+            <svg class="w-3.5 h-3.5 text-base-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span class="hidden sm:inline">Context Used</span>
+            <span class="w-2 h-2 rounded-full bg-accent-violet"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Content Area: Chat Feed + Collapsible Context Card -->
+      <div class="flex-1 flex overflow-hidden">
+        
+        <!-- Chat Stage (Center Column) -->
+        <div class="flex-1 flex flex-col justify-between overflow-hidden bg-white">
+          
+          <!-- Conversation Stream -->
+          <div class="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+            
+            <!-- Timestamp / Protocol notice -->
+            <div class="flex justify-center">
+              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-base-mutedBg border border-base-border text-[11px] font-mono text-base-muted">
+                <svg class="w-3 h-3 text-base-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                Active Session: Session ID #WG-CIT-84092 • Prototype Model Feed
+              </div>
+            </div>
+
+            <!-- Preceding Context Prompt (Welcome/Greeting) -->
+            <div class="flex items-start gap-3 max-w-2xl">
+              <div class="w-8 h-8 rounded-full bg-[#0A0A0A] border border-zinc-700 flex items-center justify-center shrink-0 text-white">
+                <svg class="w-4 h-4 text-accent-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div class="bg-base-mutedBg border border-base-border rounded-2xl rounded-tl-sm p-4 text-xs text-base-text leading-relaxed">
+                <p class="font-medium text-base-black mb-1">Namaste! I am your WeatherGuard Citizen AI assistant.</p>
+                <p class="text-zinc-600">I translate high-resolution atmospheric models into clear safety answers for Pune and Western Maharashtra districts. Ask any question regarding local storms, onset times, or advisory alerts.</p>
+              </div>
+            </div>
+
+            <!-- User Question Bubble (Black #0A0A0A, White Text) -->
+            <div class="flex items-end justify-end gap-3">
+              <div class="max-w-xl bg-base-black text-white rounded-2xl rounded-tr-sm px-5 py-3.5 shadow-sm">
+                <p class="text-sm font-medium leading-relaxed tracking-normal">
+                  When will the anomaly reach Pune?
+                </p>
+                <div class="flex items-center justify-end gap-2 mt-1.5 text-[10px] font-mono text-zinc-400">
+                  <span>14:32 IST</span>
+                  <span>•</span>
+                  <span>Citizen Inquiry</span>
+                </div>
+              </div>
+              <div class="w-8 h-8 rounded-full bg-zinc-200 border border-zinc-300 flex items-center justify-center text-xs font-semibold text-zinc-700 shrink-0">
+                P
+              </div>
+            </div>
+
+            <!-- Assistant Answer Bubble (Light gray #F4F4F5, Black text) -->
+            <div class="flex items-start gap-3 max-w-2xl">
+              <!-- Avatar badge -->
+              <div class="w-8 h-8 rounded-full bg-[#0A0A0A] border border-zinc-700 flex items-center justify-center shrink-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-accent-violet ring-2 ring-purple-900/50"></span>
+              </div>
+
+              <!-- Main Bubble Card -->
+              <div class="bg-base-mutedBg border border-base-border rounded-2xl rounded-tl-sm p-5 space-y-4 shadow-sm">
+                
+                <!-- Short 2-sentence answer (Per user specification) -->
+                <div class="text-sm font-normal text-base-black leading-relaxed space-y-1">
+                  <p>
+                    The convective extreme rainfall anomaly (WG-001) is projected to reach Pune district between <strong>18:00 and 21:00 IST tomorrow (T+24h)</strong>.
+                  </p>
+                  <p class="text-zinc-700">
+                    Precipitation intensity will peak along the western ghats corridor with localized accumulation rates exceeding 45 mm/hr before dissipating eastward.
+                  </p>
+                </div>
+
+                <!-- Small Map Thumbnail showing the trajectory toward Pune -->
+                <div class="rounded-xl border border-base-border bg-white p-3 overflow-hidden shadow-xs">
+                  <div class="flex items-center justify-between pb-2 mb-2 border-b border-zinc-100 text-[11px]">
+                    <div class="flex items-center gap-1.5 font-medium text-base-black">
+                      <svg class="w-3.5 h-3.5 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      <span>Trajectory Preview • Anomaly WG-001 Approach</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-zinc-500">CartoDB Positron / 5km Grid</span>
+                  </div>
+
+                  <!-- Graphic Map Representation (Clean CartoDB Positron style pale map) -->
+                  <div class="relative w-full h-44 bg-[#F8F9FA] rounded-lg border border-zinc-200 overflow-hidden select-none">
+                    
+                    <!-- Pale Basemap Background Grid / Coastline Contours -->
+                    <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Grid lines -->
+                      <defs>
+                        <pattern id="map-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                          <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#E5E7EB" stroke-width="0.75"/>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill="url(#map-grid)" />
+
+                      <!-- Coastline contour representation of Maharashtra Western coast -->
+                      <path d="M 30 0 C 45 40, 55 90, 48 140 C 44 165, 38 175, 42 200" fill="none" stroke="#D1D5DB" stroke-width="2" stroke-dasharray="3,3" />
+                      <text x="10" y="60" fill="#9CA3AF" font-size="9" font-family="Inter" font-weight="500">ARABIAN SEA</text>
+
+                      <!-- Western Ghats terrain ridge indicator -->
+                      <path d="M 95 0 C 105 50, 110 110, 108 180" fill="none" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
+
+                      <!-- Anomaly Trajectory Path (Dashed black line with nodes) -->
+                      <path d="M 68 35 L 120 75 L 175 118 L 220 145" fill="none" stroke="#0A0A0A" stroke-width="2" stroke-dasharray="4,4" />
+
+                      <!-- Translucent severity-colored impact polygon over trajectory -->
+                      <ellipse cx="175" cy="118" rx="42" ry="26" fill="#DC2626" fill-opacity="0.14" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="2,2"/>
+                      <ellipse cx="175" cy="118" rx="20" ry="12" fill="#F97316" fill-opacity="0.22" />
+
+                      <!-- Node: T+0h Origin -->
+                      <circle cx="68" cy="35" r="4" fill="#0A0A0A"/>
+                      <text x="50" y="24" fill="#71717A" font-size="9" font-family="JetBrains Mono" font-weight="600">T+0h</text>
+
+                      <!-- Node: T+12h Passing -->
+                      <circle cx="120" cy="75" r="4.5" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.5"/>
+                      <text x="110" y="65" fill="#2563EB" font-size="9" font-family="JetBrains Mono" font-weight="600">T+12h (Lonavala)</text>
+
+                      <!-- Node: T+24h Arrival at Pune (Highlighted with pulsing ring) -->
+                      <circle cx="175" cy="118" r="14" fill="#DC2626" fill-opacity="0.15">
+                        <animate attributeName="r" values="8;16;8" dur="2.4s" repeatCount="indefinite"/>
+                      </circle>
+                      <circle cx="175" cy="118" r="6" fill="#DC2626" stroke="#FFFFFF" stroke-width="2"/>
+                      
+                      <!-- Node: T+48h Forward projection -->
+                      <circle cx="220" cy="145" r="3.5" fill="#71717A" stroke="#FFFFFF" stroke-width="1"/>
+                      <text x="228" y="148" fill="#71717A" font-size="8" font-family="JetBrains Mono">T+48h (Solapur)</text>
+                    </svg>
+
+                    <!-- Overlay Label: Pune Target Pin -->
+                    <div class="absolute top-[82px] left-[184px] bg-base-black text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-md flex items-center gap-1 border border-zinc-700">
+                      <span class="w-1.5 h-1.5 rounded-full bg-accent-red"></span>
+                      <span>Pune (MH-12)</span>
+                    </div>
+
+                    <!-- Overlay Label: Expected arrival time chip -->
+                    <div class="absolute bottom-2 left-2 bg-white/95 backdrop-blur-xs border border-base-border px-2 py-1 rounded text-[10px] font-mono text-zinc-700 shadow-xs flex items-center gap-2">
+                      <span class="text-accent-red font-semibold">T+24h ETA:</span>
+                      <span>Tomorrow ~19:30 IST</span>
+                    </div>
+
+                    <!-- Attribution -->
+                    <div class="absolute bottom-1 right-2 text-[8px] font-mono text-zinc-400">
+                      CartoDB Positron • WeatherGuard 5km GNN
+                    </div>
+                  </div>
+
+                  <!-- Quick Stats Bar beneath thumbnail -->
+                  <div class="grid grid-cols-3 gap-2 pt-2.5 text-[11px] font-mono">
+                    <div class="bg-zinc-50 p-1.5 rounded border border-zinc-100">
+                      <div class="text-[9px] text-base-muted uppercase">Confidence</div>
+                      <div class="font-semibold text-accent-blue">89.4% (Tier-1)</div>
+                    </div>
+                    <div class="bg-zinc-50 p-1.5 rounded border border-zinc-100">
+                      <div class="text-[9px] text-base-muted uppercase">Peak Rain Rate</div>
+                      <div class="font-semibold text-accent-red">48 mm/hr</div>
+                    </div>
+                    <div class="bg-zinc-50 p-1.5 rounded border border-zinc-100">
+                      <div class="text-[9px] text-base-muted uppercase">Front Velocity</div>
+                      <div class="font-semibold text-base-black">22.4 km/h ESE</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Evidence Chips (Per specification: "Trajectory T+24h", "Anomaly score") -->
+                <div class="flex flex-wrap items-center gap-2 pt-1">
+                  <span class="text-[11px] font-mono text-base-muted uppercase tracking-wider text-[10px]">Verified Evidence:</span>
+                  
+                  <!-- Chip 1: Trajectory T+24h -->
+                  <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-base-border text-xs font-mono text-base-text hover:border-zinc-400 transition cursor-help shadow-2xs" title="Trajectory propagation computed with Graph Neural Network downscaling">
+                    <svg class="w-3.5 h-3.5 text-accent-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    <span class="font-medium text-[11px]">Trajectory T+24h</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-green"></span>
+                  </div>
+
+                  <!-- Chip 2: Anomaly score -->
+                  <div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white border border-base-border text-xs font-mono text-base-text hover:border-zinc-400 transition cursor-help shadow-2xs" title="Extreme Forecast Index calculated against 30-year reanalysis baseline">
+                    <svg class="w-3.5 h-3.5 text-accent-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    <span class="font-medium text-[11px]">Anomaly Score: 0.94 EFI</span>
+                    <span class="px-1 py-0.2 rounded bg-red-100 text-accent-red text-[9px] font-bold">EXTREME</span>
+                  </div>
+
+                  <!-- Chip 3: Physics Validation Pass -->
+                  <div class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-emerald-50 border border-emerald-200 text-xs font-mono text-emerald-800">
+                    <svg class="w-3 h-3 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                    <span class="text-[10px]">Mass-Conservation Validated</span>
+                  </div>
+                </div>
+
+                <!-- Footer of the assistant bubble (Per specification) -->
+                <div class="pt-3 border-t border-zinc-200 flex items-center justify-between text-[11px] text-base-muted font-normal">
+                  <div class="flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>Answer generated from verified WeatherGuard data</span>
+                  </div>
+                  <span class="font-mono text-[10px] text-zinc-400">14:32:04 IST</span>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Marathi Sample Answer Preview Card (Collapsible Toggle Demonstration) -->
+            <div id="marathi-preview-bubble" class="hidden flex items-start gap-3 max-w-2xl">
+              <div class="w-8 h-8 rounded-full bg-[#0A0A0A] border border-zinc-700 flex items-center justify-center shrink-0">
+                <span class="w-2.5 h-2.5 rounded-full bg-accent-violet"></span>
+              </div>
+              <div class="bg-base-mutedBg border border-base-border rounded-2xl rounded-tl-sm p-5 space-y-3">
+                <div class="text-sm text-base-black leading-relaxed">
+                  <p class="font-semibold">पुणे जिल्ह्यासाठी पूर्वसूचना:</p>
+                  <p>अत्यंत मुसळधार पावसाचा अंदाज (WG-001) उद्या संध्याकाळी <strong>१८:०० ते २१:०० च्या दरम्यान</strong> पुणे शहरात पोहोचण्याची शक्यता आहे. घाटमाथ्यावर प्रति तास ४५ मिमी पेक्षा जास्त पाऊस पडू शकतो.</p>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 rounded bg-white border border-base-border text-[11px] font-mono text-zinc-700">मार्ग ट्रॅक: T+24h</span>
+                  <span class="px-2 py-0.5 rounded bg-red-100 text-accent-red text-[11px] font-mono font-semibold">अतिवृष्टी धोका (EFI 0.94)</span>
+                </div>
+                <div class="pt-2 border-t border-zinc-200 text-[11px] text-base-muted flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5 text-accent-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>प्रमाणित वेदरगार्ड डेटावरून व्युत्पन्न केलेले उत्तर</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Action Area: Quick-replies & Input Box -->
+          <div class="p-6 bg-white border-t border-base-border shrink-0 space-y-3.5">
+            
+            <!-- Quick-reply chips (Per specification) -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-[11px] text-base-muted">
+                <span class="font-medium text-zinc-500 flex items-center gap-1">
+                  <svg class="w-3 h-3 text-accent-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                  Suggested inquiries for Pune district:
+                </span>
+                <span class="text-[10px] font-mono text-zinc-400">Click chip to insert</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Chip 1: Will there be heavy rain tomorrow? -->
+                <button onclick="setQuery('Will there be heavy rain tomorrow?')" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-base-border text-xs text-base-text hover:border-accent-violet hover:bg-purple-50/50 hover:text-accent-violet transition shadow-2xs">
+                  <span>Will there be heavy rain tomorrow?</span>
+                  <span class="text-zinc-400 group-hover:text-accent-violet font-mono text-xs">↗</span>
+                </button>
+                <!-- Chip 2: Why is this area high risk? -->
+                <button onclick="setQuery('Why is this area high risk?')" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-base-border text-xs text-base-text hover:border-accent-violet hover:bg-purple-50/50 hover:text-accent-violet transition shadow-2xs">
+                  <span>Why is this area high risk?</span>
+                  <span class="text-zinc-400 group-hover:text-accent-violet font-mono text-xs">↗</span>
+                </button>
+                <!-- Chip 3: What does this alert mean? -->
+                <button onclick="setQuery('What does this alert mean?')" class="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-base-border text-xs text-base-text hover:border-accent-violet hover:bg-purple-50/50 hover:text-accent-violet transition shadow-2xs">
+                  <span>What does this alert mean?</span>
+                  <span class="text-zinc-400 group-hover:text-accent-violet font-mono text-xs">↗</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Input Bar with Send Button -->
+            <form onsubmit="handleSend(event)" class="relative flex items-center bg-base-mutedBg border border-base-border rounded-2xl focus-within:border-accent-violet focus-within:ring-2 focus-within:ring-accent-violet/20 transition-all p-1.5 pl-4 shadow-xs">
+              <input 
+                id="user-input" 
+                type="text" 
+                placeholder="Ask about local rainfall, flood risk, or trajectory in plain English or Marathi..." 
+                class="flex-1 bg-transparent border-0 text-sm text-base-text placeholder-zinc-400 focus:outline-none focus:ring-0 py-2"
+                autocomplete="off"
+              />
+
+              <div class="flex items-center gap-2 pr-1.5">
+                <!-- Mode Badge Indicator -->
+                <div class="hidden sm:flex items-center gap-1 px-2 py-1 rounded bg-white border border-base-border text-[10px] font-mono text-zinc-500">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-violet"></span>
+                  <span>Verified Synthesis</span>
+                </div>
+
+                <!-- Black Send Button (Per specification) -->
+                <button type="submit" class="h-9 px-4 bg-base-black hover:bg-zinc-800 text-white font-medium text-xs rounded-xl flex items-center gap-2 transition active:scale-95 shadow-sm">
+                  <span>Send</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+              </div>
+            </form>
+
+            <div class="flex items-center justify-between text-[10px] text-zinc-400 font-mono">
+              <div class="flex items-center gap-2">
+                <span>Model: WeatherGuard-Diffusion-v2</span>
+                <span>•</span>
+                <span>Spatial precision: ~5 km cell</span>
+              </div>
+              <div>
+                <span>Notice: Prototype/Sample Data — No live operational guarantee</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right Collapsible Panel: "Context Used" Card (Per specification) -->
+        <aside id="context-panel" class="w-80 border-l border-base-border bg-[#FCFCFD] flex flex-col justify-between shrink-0 transition-all duration-300">
+          
+          <div class="p-5 overflow-y-auto space-y-5">
+            <!-- Header of Context Panel -->
+            <div class="flex items-center justify-between pb-3 border-b border-base-border">
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded bg-purple-50 border border-purple-200 flex items-center justify-center">
+                  <svg class="w-3.5 h-3.5 text-accent-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                </div>
+                <div>
+                  <h2 class="text-xs font-bold text-base-black uppercase tracking-wider font-mono">Context Used</h2>
+                  <p class="text-[10px] text-base-muted">Structured inference provenance</p>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 border border-zinc-200">4 fields</span>
+            </div>
+
+            <div class="text-xs text-base-muted leading-relaxed">
+              This response was verified using meteorological telemetry fields logged in the anomaly database:
+            </div>
+
+            <!-- Structured Fields Card -->
+            <div class="space-y-3 bg-white p-4 rounded-xl border border-base-border shadow-xs">
+              
+              <!-- Field 1: Anomaly ID -->
+              <div class="border-b border-zinc-100 pb-2.5">
+                <div class="text-[10px] font-mono uppercase text-base-muted mb-0.5 flex items-center justify-between">
+                  <span>Field: Anomaly ID</span>
+                  <span class="text-accent-blue font-mono font-semibold">Active</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono font-bold text-base-black">WG-001</span>
+                  <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-700">Cluster #412</span>
+                </div>
+                <div class="text-[11px] text-zinc-500 mt-1">Convective system originating off Konkan Coast</div>
+              </div>
+
+              <!-- Field 2: Location & Cell Coordinates -->
+              <div class="border-b border-zinc-100 pb-2.5">
+                <div class="text-[10px] font-mono uppercase text-base-muted mb-0.5 flex items-center justify-between">
+                  <span>Field: Location Coordinates</span>
+                  <span class="text-accent-green font-mono">5 km mesh</span>
+                </div>
+                <div class="text-xs font-medium text-base-black">
+                  Pune District (Urban + Haveli)
+                </div>
+                <div class="text-[11px] font-mono text-zinc-600 mt-0.5">
+                  18.5204° N, 73.8567° E
+                </div>
+                <div class="text-[10px] text-zinc-400 mt-0.5 font-mono">Bounding box: 18.25N-18.78N, 73.50E-74.15E</div>
+              </div>
+
+              <!-- Field 3: Severity -->
+              <div class="border-b border-zinc-100 pb-2.5">
+                <div class="text-[10px] font-mono uppercase text-base-muted mb-0.5 flex items-center justify-between">
+                  <span>Field: Severity Level</span>
+                  <span class="text-[9px] font-mono text-accent-red font-bold">CRITICAL</span>
+                </div>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="px-2.5 py-0.5 rounded-full bg-red-100 border border-red-200 text-accent-red text-xs font-bold font-mono">
+                    High Risk (Level 3/3)
+                  </span>
+                  <span class="text-[11px] font-mono text-zinc-500">EFI 0.94</span>
+                </div>
+                <div class="text-[11px] text-zinc-500 mt-1.5">
+                  Percentile: >99.4th of 30-year climatological record for October.
+                </div>
+              </div>
+
+              <!-- Field 4: Forecast Time / Time Horizon -->
+              <div>
+                <div class="text-[10px] font-mono uppercase text-base-muted mb-0.5 flex items-center justify-between">
+                  <span>Field: Forecast Time</span>
+                  <span class="text-zinc-500 font-mono">UTC+05:30</span>
+                </div>
+                <div class="text-xs font-semibold text-base-black font-mono">
+                  T+24h (Tomorrow 18:00 - 21:00 IST)
+                </div>
+                <div class="text-[11px] text-zinc-500 mt-1">
+                  Model initiation timestamp: 2026-03-29 06:00 UTC
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Model Explainability & Trust Audit -->
+            <div class="bg-purple-50/70 border border-purple-100 rounded-xl p-3.5 space-y-2">
+              <div class="flex items-center gap-1.5 text-xs font-bold text-accent-violet">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                <span>Physics Trust Verifier</span>
+              </div>
+              <p class="text-[11px] text-zinc-600 leading-snug">
+                Zero hallucination protocol active. Answers are generated by matching prompt tokens directly to the structured physics bounds.
+              </p>
+              <div class="space-y-1 font-mono text-[10px] pt-1">
+                <div class="flex justify-between text-zinc-600">
+                  <span>Moisture budget:</span>
+                  <span class="text-accent-green font-semibold">Conserved (±0.02%)</span>
+                </div>
+                <div class="flex justify-between text-zinc-600">
+                  <span>Vertical velocity:</span>
+                  <span class="text-accent-green font-semibold">Valid (ω &lt; -1.2 Pa/s)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Disclaimer Notice -->
+            <div class="p-3 bg-zinc-100 rounded-lg border border-zinc-200 text-[10px] text-zinc-500 leading-tight">
+              <strong>Smart India Hackathon 2026 Notice:</strong> All data is prototype synthetic simulation. Not certified for civic evacuations.
+            </div>
+
+          </div>
+
+          <!-- Bottom Panel Action -->
+          <div class="p-4 border-t border-base-border bg-white flex items-center justify-between text-[11px]">
+            <span class="text-base-muted font-mono">Dataset version: MH_2026.04</span>
+            <button onclick="alert('Exporting verified provenance JSON log...')" class="font-mono text-accent-blue hover:underline text-[11px]">
+              Export JSON
+            </button>
+          </div>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Interactive JavaScript logic for toggling languages and inserting queries -->
+  <script>
+    // Tab switching between English, Marathi, Hindi
+    const btnEn = document.getElementById('lang-en');
+    const btnMr = document.getElementById('lang-mr');
+    const btnHi = document.getElementById('lang-hi');
+    const marathiBubble = document.getElementById('marathi-preview-bubble');
+
+    function setActiveTab(activeBtn) {
+      [btnEn, btnMr, btnHi].forEach(btn => {
+        btn.classList.remove('bg-accent-violet', 'text-white', 'shadow-sm', 'font-semibold');
+        btn.classList.add('text-base-muted', 'font-medium');
+        btn.setAttribute('aria-selected', 'false');
+      });
+      activeBtn.classList.remove('text-base-muted', 'font-medium');
+      activeBtn.classList.add('bg-accent-violet', 'text-white', 'shadow-sm', 'font-semibold');
+      activeBtn.setAttribute('aria-selected', 'true');
+    }
+
+    btnEn.addEventListener('click', () => {
+      setActiveTab(btnEn);
+      marathiBubble.classList.add('hidden');
+    });
+
+    btnMr.addEventListener('click', () => {
+      setActiveTab(btnMr);
+      marathiBubble.classList.remove('hidden');
+      marathiBubble.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    btnHi.addEventListener('click', () => {
+      setActiveTab(btnHi);
+      marathiBubble.classList.remove('hidden');
+      marathiBubble.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Toggle Collapsible Right Panel
+    const toggleContextBtn = document.getElementById('toggle-context-btn');
+    const contextPanel = document.getElementById('context-panel');
+
+    toggleContextBtn.addEventListener('click', () => {
+      if (contextPanel.classList.contains('hidden')) {
+        contextPanel.classList.remove('hidden');
+        toggleContextBtn.classList.add('bg-zinc-50');
+      } else {
+        contextPanel.classList.add('hidden');
+        toggleContextBtn.classList.remove('bg-zinc-50');
+      }
+    });
+
+    // Helper to populate query from suggested chips
+    function setQuery(text) {
+      const input = document.getElementById('user-input');
+      input.value = text;
+      input.focus();
+    }
+
+    function handleSend(e) {
+      e.preventDefault();
+      const input = document.getElementById('user-input');
+      if (!input.value.trim()) return;
+      alert(`Citizen query received: "${input.value}". WeatherGuard AI is processing the 5 km simulation mesh.`);
+      input.value = '';
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed-variant": "#5a00c6", "on-tertiary-fixed": "#002113", "surface-tint": "#0053db", "on-primary-fixed-variant": "#003ea8", "surface": "#fbf8fc", "surface-container": "#f0edf1", "on-surface": "#1b1b1e", "secondary-container": "#8a4cfc", "primary-fixed": "#dbe1ff", "surface-container-highest": "#e4e1e6", "surface-container-lowest": "#ffffff", "tertiary-container": "#007d55", "surface-bright": "#fbf8fc", "on-primary-fixed": "#00174b", "secondary-fixed-dim": "#d2bbff", "on-error": "#ffffff", "on-primary-container": "#eeefff", "on-primary": "#ffffff", "secondary": "#712ae2", "on-surface-variant": "#434655", "primary-container": "#2563eb", "inverse-primary": "#b4c5ff", "outline": "#737686", "primary-fixed-dim": "#b4c5ff", "surface-variant": "#e4e1e6", "surface-container-low": "#f6f2f7", "primary": "#004ac6", "tertiary-fixed": "#6ffbbe", "on-secondary": "#ffffff", "tertiary": "#006242", "surface-container-high": "#eae7eb", "on-tertiary": "#ffffff", "error-container": "#ffdad6", "secondary-fixed": "#eaddff", "inverse-on-surface": "#f3f0f4", "on-tertiary-container": "#bdffdb", "error": "#ba1a1a", "on-background": "#1b1b1e", "on-secondary-fixed": "#25005a", "surface-dim": "#dcd9dd", "outline-variant": "#c3c6d7", "inverse-surface": "#303033", "on-secondary-container": "#fffbff", "tertiary-fixed-dim": "#4edea3", "on-tertiary-fixed-variant": "#005236", "on-error-container": "#93000a", "background": "#fbf8fc" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "1rem", "gutter": "1rem", "space-lg": "1.5rem", "margin-desktop": "2rem", "space-xs": "0.25rem", "gutter-desktop": "1.5rem", "space-sm": "0.5rem", "margin": "1rem", "space-xl": "2rem" }, "fontFamily": { "headline-md": ["Inter"], "body-lg": ["Inter"], "headline-xl-mobile": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "mono-metric": ["JetBrains Mono"], "label-caps": ["Inter"], "mono-code": ["JetBrains Mono"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "mono-telemetry": ["JetBrains Mono"] }, "fontSize": { "headline-md": ["18px", { "lineHeight": "26px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400" }], "headline-xl-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }], "headline-xl": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600" }], "mono-metric": ["28px", { "lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "label-caps": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700" }], "mono-code": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-lg-mobile": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }], "mono-telemetry": ["11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }] } } } }</script></head><body class="bg-surface-container-lowest font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-14 bg-[#0A0A0A] border-b border-[#27272A] z-50 flex items-center justify-between px-space-md select-none"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-sm"><img alt="WeatherGuard AI clean minimalist vector logo with shield contour and precision meteorological atmospheric isobar wave glyph in pure white on near-black badge.. Brand logo. - Primary color: #2563eb
+- Font: inter
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WG6Fmb-eFCHznvdv8Mv-NQ85VXu2qGDJOrFCyYKmLM-saSJOnzHzVbpeQcxFXkBYq9N7-d_A5tphkWnDjRKxQNT4JC9k98HVRT6aPBcpNlWKcHs34ApGnKo1sFnLYKYke5yLZMrp0sQvdm9uYGbslFt5loaj8xrkJw_4D--X80irRSDQd4bdbks8_TdfJH_OzBpQpNdCL6ivH3WmFPC8kN7TNrdcysjUJkZWr9A1BtQvZGk6o4FHh2bGs"/><div class="flex flex-col"><span class="text-white font-headline-md text-body-md tracking-tight leading-none font-semibold">WeatherGuard AI</span><span class="text-[#A1A1AA] font-mono-telemetry text-body-sm leading-none pt-0.5">CORE ARCHITECTURE</span></div></div><div class="h-4 w-px bg-[#27272A] hidden sm:block"></div><div class="hidden xl:flex items-center gap-1.5 bg-[#18181B] px-space-sm py-1 rounded-DEFAULT border border-[#27272A]"><div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div><span class="text-[#E4E4E7] font-mono-telemetry text-body-sm uppercase">REGION:</span><span class="text-white font-mono-code text-body-sm font-medium">Maharashtra, India</span></div><div class="hidden 2xl:flex items-center gap-1 font-mono-telemetry text-body-sm text-[#71717A] pl-space-xs"><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">DETECT</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#2563EB] text-white font-semibold">TRACK</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">DOWNSCALE</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">VALIDATE</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">LOCALIZE</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">EXPLAIN</span><span class="text-[#52525B]">→</span><span class="px-1.5 py-0.5 rounded-DEFAULT bg-[#18181B] text-[#A1A1AA]">ALERT</span></div></div><div class="flex items-center gap-space-md"><span class="hidden lg:inline-flex items-center px-2 py-0.5 rounded-DEFAULT border border-amber-500/40 bg-amber-500/10 text-amber-300 font-mono-telemetry text-body-sm font-medium tracking-wide">PROTOTYPE DATA</span><div class="hidden sm:flex items-center bg-[#18181B] border border-[#27272A] rounded-DEFAULT p-0.5 text-body-sm font-mono-telemetry"><button class="px-2 py-0.5 rounded-DEFAULT bg-[#27272A] text-white font-medium" type="button">EN</button><button class="px-2 py-0.5 text-[#A1A1AA] hover:text-white transition-colors" type="button">मराठी</button><button class="px-2 py-0.5 text-[#A1A1AA] hover:text-white transition-colors" type="button">हिंदी</button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><aside class="fixed top-14 left-0 bottom-0 w-64 bg-[#0A0A0A] border-r border-[#27272A] z-40 flex flex-col justify-between select-none"><div class="flex flex-col py-space-sm"><div class="px-space-md py-space-xs mb-space-xs"><span class="text-[#71717A] font-label-caps text-label-caps tracking-widest uppercase">Operations Feed</span></div><nav class="flex flex-col gap-0.5 px-space-xs" data-active-classes="bg-[#18181B] text-white font-semibold border-l-2 border-primary-container"><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="command-center" href="#"><span class="material-symbols-outlined text-[18px]">grid_view</span><span>Command Center</span></a><a aria-current="page" class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT transition-colors bg-[#18181B] text-white font-semibold border-l-2 border-primary-container" data-path="anomalies" href="#"><span class="material-symbols-outlined text-[18px]">warning</span><span>Anomalies</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="time-machine" href="#"><span class="material-symbols-outlined text-[18px]">history_toggle_off</span><span>Time Machine</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="impact-zones" href="#"><span class="material-symbols-outlined text-[18px]">near_me</span><span>Impact Zones</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="explainer" href="#"><span class="material-symbols-outlined text-[18px]">neurology</span><span>Explainer</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="citizen-ai" href="#"><span class="material-symbols-outlined text-[18px]">groups</span><span>Citizen AI</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="alerts" href="#"><span class="material-symbols-outlined text-[18px]">campaign</span><span>Alerts</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-[#A1A1AA] hover:bg-[#18181B] hover:text-white transition-colors font-body-md text-body-sm" data-path="data-validation" href="#"><span class="material-symbols-outlined text-[18px]">verified</span><span>Data &amp; Validation</span></a></nav></div><div class="p-space-md border-t border-[#27272A] bg-[#0A0A0A]"><div class="flex items-center justify-between text-body-sm text-[#71717A] font-mono-telemetry mb-1"><span>TELEMETRY SYNC</span><span class="text-emerald-400">99.8%</span></div><div class="w-full bg-[#18181B] h-1 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full w-[99.8%]"></div></div><div class="mt-2 flex items-center justify-between text-body-sm font-mono-telemetry"><span class="text-[#52525B]">FRAME DELAY</span><span class="text-[#A1A1AA]">142ms</span></div></div></aside><div class="pl-64"><main class="pt-14 w-full min-h-screen bg-surface-container-lowest text-on-surface"><div class="flex flex-col w-full pb-24">
+<!-- Operational Header Sub-Bar -->
+<section class="w-full bg-surface-container-lowest px-space-md py-space-md flex flex-col gap-space-sm shadow-sm">
+<!-- Breadcrumb & Utilities -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2">
+<a class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+</a>
+<div class="flex items-center gap-1.5 font-body-sm text-on-surface-variant">
+<span class="hover:text-on-surface cursor-pointer">Anomalies</span>
+<span class="text-outline">/</span>
+<span class="font-mono-code text-on-surface font-semibold">WG-001</span>
+</div>
+<span class="text-label-caps font-label-caps px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant uppercase tracking-wider ml-1">
+          Maharashtra Region
+        </span>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 font-mono-telemetry text-body-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+          Prototype / Sample data
+        </span>
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface text-body-sm font-body-md font-medium hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+          Download NetCDF-4
+        </button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#0A0A0A] text-white text-body-sm font-body-md font-semibold hover:bg-[#18181B] transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">download</span>
+          Export GeoJSON
+        </button>
+</div>
+</div>
+<!-- Title and Comprehensive Diagnostic Badges -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md pt-space-xs">
+<div class="flex flex-col">
+<div class="flex flex-wrap items-center gap-2 mb-1">
+<span class="font-mono-code text-body-sm px-2 py-0.5 rounded bg-[#18181B] text-white font-semibold tracking-wide">
+            WG-001
+          </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-50 text-[#DC2626] font-body-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+            Severity: Extreme Alert
+          </span>
+<span class="font-mono-telemetry text-body-sm px-2 py-0.5 rounded bg-violet-50 text-[#7C3AED] font-semibold">
+            GNN-Diffusion v2.4
+          </span>
+<span class="inline-flex items-center gap-1 font-body-sm text-body-sm px-2 py-0.5 rounded bg-emerald-50 text-[#007D55] font-medium">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Physics Conservation Validated
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">
+          Extreme Convective Rainfall Anomaly
+        </h1>
+</div>
+<!-- Telemetry Mini Consensus Meter -->
+<div class="flex items-center gap-space-lg bg-surface-container-low p-2.5 rounded-xl">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Model Consensus</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-mono-metric text-mono-metric text-on-surface font-semibold">88.4</span>
+<span class="font-mono-telemetry text-body-sm text-on-surface-variant">%</span>
+</div>
+</div>
+<div class="w-32 flex flex-col gap-1.5">
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[88.4%] rounded-full"></div>
+</div>
+<span class="font-mono-telemetry text-body-sm text-on-surface-variant">50 Diffusion Passes</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main 60 / 40 Telemetry Architecture Layout -->
+<div class="w-full px-space-md pt-space-md grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- LEFT PANEL: High Precision Geospatial Canvas (60% Desktop: col-span-7) -->
+<div class="lg:col-span-7 flex flex-col gap-space-sm bg-surface-container-lowest rounded-2xl p-space-sm shadow-sm relative">
+<!-- Spatial Viewport Header & Real-time Layer Switches -->
+<div class="flex flex-wrap items-center justify-between gap-space-xs px-space-xs pt-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">layers</span>
+<span class="font-headline-md text-body-lg font-semibold text-on-surface">Spatial Trajectory Matrix</span>
+<span class="font-mono-telemetry text-body-sm px-2 py-0.5 rounded bg-surface-container text-on-surface-variant">WGS84 / 0.05°</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container p-0.5 rounded-lg text-body-sm font-mono-telemetry">
+<button class="px-2.5 py-1 rounded bg-white text-on-surface font-semibold shadow-xs" type="button">Trajectories</button>
+<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface" type="button">5km Risk Mask</button>
+<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface" type="button">Wind Vectors</button>
+<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface" type="button">Isobars</button>
+</div>
+</div>
+<!-- Map Substrate Canvas -->
+<div class="relative w-full h-[620px] rounded-xl overflow-hidden bg-[#F6F5F2] flex items-center justify-center">
+<!-- Cartographic Neutral Canvas Background Simulation (CartoDB Positron Tone) -->
+<svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="40" id="grid-pattern" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E5E4DE" stroke-width="0.75"></path>
+</pattern>
+<!-- Severity Polygons Filters -->
+<radialgradient cx="50%" cy="50%" id="grad-moderate" r="50%">
+<stop offset="0%" stop-color="#FACC15" stop-opacity="0.55"></stop>
+<stop offset="100%" stop-color="#FACC15" stop-opacity="0.05"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="grad-severe" r="50%">
+<stop offset="0%" stop-color="#F97316" stop-opacity="0.6"></stop>
+<stop offset="100%" stop-color="#F97316" stop-opacity="0.08"></stop>
+</radialgradient>
+<radialgradient cx="50%" cy="50%" id="grad-extreme" r="50%">
+<stop offset="0%" stop-color="#DC2626" stop-opacity="0.7"></stop>
+<stop offset="65%" stop-color="#DC2626" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#DC2626" stop-opacity="0.0"></stop>
+</radialgradient>
+</defs>
+<!-- Topographic Grid Line Pattern -->
+<rect fill="url(#grid-pattern)" height="100%" width="100%"></rect>
+<!-- Geographic Coastline & Ghats Contours (Maharashtra stylized) -->
+<path d="M 80,0 Q 95,120 110,210 T 140,360 T 165,490 T 180,620" fill="none" stroke="#CBD5E1" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Arabian Sea Tint Area -->
+<path d="M 0,0 L 80,0 Q 95,120 110,210 T 140,360 T 165,490 T 180,620 L 0,620 Z" fill="#EBF2FA" fill-opacity="0.6"></path>
+<!-- Subtle District / Regional Iso-contours -->
+<path d="M 110,210 C 220,180 320,220 460,190" fill="none" stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<path d="M 140,360 C 260,330 380,370 520,320" fill="none" stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<path d="M 165,490 C 290,480 390,520 540,470" fill="none" stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1.2"></path>
+<!-- District Labels -->
+<text fill="#64748B" font-family="Inter" font-size="11" font-weight="600" letter-spacing="0.05em" x="75" y="195">MUMBAI</text>
+<text fill="#64748B" font-family="Inter" font-size="11" font-weight="600" letter-spacing="0.05em" x="290" y="145">NASHIK</text>
+<text fill="#334155" font-family="Inter" font-size="12" font-weight="700" letter-spacing="0.05em" x="350" y="315">PUNE REGION</text>
+<text fill="#64748B" font-family="Inter" font-size="11" font-weight="600" letter-spacing="0.05em" x="240" y="475">SATARA</text>
+<text fill="#64748B" font-family="Inter" font-size="11" font-weight="600" letter-spacing="0.05em" x="280" y="565">KOLHAPUR</text>
+<text fill="#94A3B8" font-family="Inter" font-size="10" font-style="italic" x="175" y="270">Western Ghats Escarpment</text>
+<!-- 5km Envelope Polygons Layer (Translucent Risk Buffers) -->
+<!-- Node T+0h envelope -->
+<ellipse cx="340" cy="330" fill="url(#grad-severe)" rx="42" ry="34" transform="rotate(-15 340 330)"></ellipse>
+<!-- Node T+12h envelope -->
+<ellipse cx="280" cy="275" fill="url(#grad-severe)" rx="55" ry="40" transform="rotate(-25 280 275)"></ellipse>
+<!-- Node T+24h envelope (Extreme Peak) -->
+<ellipse cx="225" cy="220" fill="url(#grad-extreme)" rx="72" ry="50" transform="rotate(-30 225 220)"></ellipse>
+<ellipse cx="225" cy="220" fill="#DC2626" fill-opacity="0.35" rx="40" ry="28" transform="rotate(-30 225 220)"></ellipse>
+<!-- Node T+48h envelope -->
+<ellipse cx="170" cy="180" fill="url(#grad-severe)" rx="52" ry="38" transform="rotate(-20 170 180)"></ellipse>
+<!-- Node T+72h envelope -->
+<ellipse cx="130" cy="140" fill="url(#grad-moderate)" rx="44" ry="32" transform="rotate(-10 130 140)"></ellipse>
+<!-- Dynamic Trajectory Path (Pune toward Konkan / Ghats crest) -->
+<path d="M 340,330 L 280,275 L 225,220 L 170,180 L 130,140" fill="none" stroke="#0A0A0A" stroke-dasharray="6,4" stroke-linecap="round" stroke-width="2.2"></path>
+<!-- Directional Arrow Indicators -->
+<polygon fill="#0A0A0A" points="305,298 314,296 310,305"></polygon>
+<polygon fill="#0A0A0A" points="250,244 259,242 255,251"></polygon>
+<polygon fill="#0A0A0A" points="196,198 204,195 201,204"></polygon>
+<polygon fill="#0A0A0A" points="148,157 156,154 153,163"></polygon>
+<!-- Node Markers -->
+<!-- T+0h Node (Current Anchor) -->
+<g>
+<circle class="animate-pulse" cx="340" cy="330" fill="#2563EB" fill-opacity="0.2" r="14"></circle>
+<circle cx="340" cy="330" fill="#2563EB" r="7" stroke="#FFFFFF" stroke-width="2.5"></circle>
+</g>
+<!-- T+12h Node -->
+<circle cx="280" cy="275" fill="#F97316" r="5.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- T+24h Node (Max Anomaly Alert Core) -->
+<g>
+<circle cx="225" cy="220" fill="#DC2626" fill-opacity="0.25" r="18"></circle>
+<circle cx="225" cy="220" fill="#DC2626" r="8" stroke="#FFFFFF" stroke-width="2.5"></circle>
+<circle cx="225" cy="220" fill="#FFFFFF" r="3.5"></circle>
+</g>
+<!-- T+48h Node -->
+<circle cx="170" cy="180" fill="#F97316" r="5.5" stroke="#FFFFFF" stroke-width="2"></circle>
+<!-- T+72h Node -->
+<circle cx="130" cy="140" fill="#FACC15" r="5" stroke="#FFFFFF" stroke-width="2"></circle>
+</svg>
+<!-- Node Coordinate Tooltip Overlay: T+0h Active -->
+<div class="absolute left-[360px] top-[320px] bg-white/95 backdrop-blur-xs p-2 rounded-lg shadow-sm text-left pointer-events-none">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-mono-code text-body-sm font-bold text-on-surface">T+0h (INIT)</span>
+</div>
+<p class="font-mono-telemetry text-body-sm text-on-surface-variant">18.5204° N, 73.8567° E</p>
+<p class="font-mono-code text-body-sm text-primary font-semibold">62.4 mm/h</p>
+</div>
+<!-- Node Coordinate Tooltip Overlay: T+24h PEAK ALERT -->
+<div class="absolute left-[135px] top-[245px] bg-[#0A0A0A] text-white p-2.5 rounded-lg shadow-md text-left pointer-events-none">
+<div class="flex items-center justify-between gap-2">
+<span class="font-mono-code text-body-sm font-bold text-red-400">T+24h PEAK ENVELOPE</span>
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping"></span>
+</div>
+<p class="font-mono-telemetry text-body-sm text-[#A1A1AA]">18.9612° N, 73.4810° E</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-mono-metric text-headline-md text-white font-bold leading-none">84.2</span>
+<span class="font-mono-telemetry text-body-sm text-red-400">mm/h (Extreme)</span>
+</div>
+</div>
+<!-- Floating Map Utility Dock (Zoom & Reset) -->
+<div class="absolute top-4 right-4 flex flex-col gap-1 bg-white/90 backdrop-blur-xs p-1 rounded-lg shadow-sm">
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface hover:bg-surface-container font-mono-metric text-body-md" type="button">+</button>
+<div class="w-full h-px bg-surface-container-highest"></div>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface hover:bg-surface-container font-mono-metric text-body-md" type="button">−</button>
+<div class="w-full h-px bg-surface-container-highest"></div>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[16px]">fullscreen</span>
+</button>
+</div>
+<!-- Legend Overlay (Bottom-Left) -->
+<div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-xs p-3 rounded-xl shadow-sm flex flex-col gap-2 max-w-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Atmospheric Severity Index</span>
+<div class="flex items-center gap-3 font-mono-telemetry text-body-sm">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#FACC15]"></span>
+<span class="text-on-surface">&gt;30 mm/h</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#F97316]"></span>
+<span class="text-on-surface">&gt;55 mm/h</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-[#DC2626]"></span>
+<span class="text-on-surface font-semibold">&gt;80 mm/h</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1 border-t border-surface-container-high font-mono-telemetry text-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1">
+<svg class="inline" height="4" width="18"><line stroke="#0A0A0A" stroke-dasharray="3,2" stroke-width="2" x1="0" x2="18" y1="2" y2="2"></line></svg>
+              Advection Track
+            </span>
+<span>Grid: 5 km resolution</span>
+</div>
+</div>
+<!-- Attribution watermark -->
+<div class="absolute bottom-2 right-3 font-mono-telemetry text-body-sm text-outline">
+          Positron CartoDB | IMD Radar Radar Mosaic 0.05°
+        </div>
+</div>
+<!-- Quick Geo-Spatial Summary Pill Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-xs pt-space-xs">
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">INIT COORD</span>
+<span class="font-mono-code text-body-sm font-semibold text-on-surface mt-0.5">18.520° N, 73.856° E</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">PEAK COORDINATE</span>
+<span class="font-mono-code text-body-sm font-semibold text-[#DC2626] mt-0.5">18.961° N, 73.481° E</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">PROPAGATION SPEED</span>
+<span class="font-mono-code text-body-sm font-semibold text-on-surface mt-0.5">14.6 km/h WNW</span>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">BASIN RISK</span>
+<span class="font-mono-code text-body-sm font-semibold text-on-surface mt-0.5">Mula-Mutha / Bhima</span>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: Precision Diagnostics Stack (40% Desktop: col-span-5) -->
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<!-- CARD 1: Precipitation Intensity Over Time -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Temporal Dynamics</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">Precipitation Intensity Over Time</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Projected hourly accumulation vs extreme threshold (mm/h)</p>
+</div>
+<span class="font-mono-telemetry text-body-sm px-2 py-0.5 rounded bg-red-50 text-[#DC2626] font-semibold">
+            Max 84.2 mm/h
+          </span>
+</div>
+<!-- SVG Line Graph with Threshold Shading -->
+<div class="w-full h-44 mt-1 relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 420 160">
+<!-- Gridlines & Y labels -->
+<line stroke="#F1F0F4" stroke-width="1" x1="40" x2="410" y1="20" y2="20"></line>
+<line stroke="#F1F0F4" stroke-width="1" x1="40" x2="410" y1="55" y2="55"></line>
+<line stroke="#F1F0F4" stroke-width="1" x1="40" x2="410" y1="90" y2="90"></line>
+<line stroke="#F1F0F4" stroke-width="1" x1="40" x2="410" y1="125" y2="125"></line>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="24">100</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="59">75</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="94">50</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="32" y="129">25</text>
+<!-- Warning Threshold Band (65 mm/h = y: 69) -->
+<rect fill="#DC2626" fill-opacity="0.06" height="49" width="370" x="40" y="20"></rect>
+<line stroke="#DC2626" stroke-dasharray="4,3" stroke-width="1" x1="40" x2="410" y1="69" y2="69"></line>
+<text fill="#DC2626" font-family="JetBrains Mono" font-size="9" font-weight="600" text-anchor="end" x="405" y="65">CRITICAL THRESHOLD 65mm/h</text>
+<!-- Curve Gradient Fill -->
+<defs>
+<lineargradient id="precip-curve-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#2563EB" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#2563EB" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Area polygon -->
+<polygon fill="url(#precip-curve-grad)" points="40,135 75,73 155,54 235,41 315,79 395,117 395,145 40,145"></polygon>
+<!-- The primary line -->
+<path d="M 40,73 C 110,65 180,35 235,41 C 285,46 340,95 395,117" fill="none" stroke="#2563EB" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Peak Callout Point at T+24h (X: 235, Y: 41) -->
+<circle cx="235" cy="41" fill="#2563EB" r="5" stroke="#FFFFFF" stroke-width="2"></circle>
+<line stroke="#2563EB" stroke-dasharray="2,2" stroke-width="1" x1="235" x2="235" y1="41" y2="145"></line>
+<!-- X Axis Points -->
+<text fill="#6B7280" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="40" y="156">T+0h</text>
+<text fill="#6B7280" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="135" y="156">T+12h</text>
+<text fill="#2563EB" font-family="JetBrains Mono" font-size="10" font-weight="700" text-anchor="middle" x="235" y="156">T+24h</text>
+<text fill="#6B7280" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="325" y="156">T+48h</text>
+<text fill="#6B7280" font-family="JetBrains Mono" font-size="10" text-anchor="middle" x="395" y="156">T+72h</text>
+</svg>
+</div>
+</div>
+<!-- CARD 2: AI Ensemble Confidence & Dispersion -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-md shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<!-- Structural Violet Accent (GNN/Diffusion architecture) -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-[#7C3AED]"></div>
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-[#7C3AED] uppercase tracking-wider font-semibold">Diffusion Denoising Ensembles</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">AI Ensemble Confidence &amp; Dispersion</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Diffusion ensemble variance across 50 simulated members</p>
+</div>
+<span class="font-mono-telemetry text-body-sm px-2 py-0.5 rounded bg-violet-50 text-[#7C3AED] font-semibold">
+            Spread: 0.14 σ
+          </span>
+</div>
+<!-- Ensemble Confidence Band SVG -->
+<div class="w-full h-36 mt-1">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 420 120">
+<defs>
+<lineargradient id="violet-dispersion" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#7C3AED" stop-opacity="0.18"></stop>
+<stop offset="100%" stop-color="#7C3AED" stop-opacity="0.04"></stop>
+</lineargradient>
+</defs>
+<!-- Dispersion Envelope Shading (Widening toward T+72h) -->
+<path d="M 40,15 C 130,17 230,22 395,38 L 395,78 C 230,52 130,36 40,25 Z" fill="url(#violet-dispersion)"></path>
+<!-- Ensemble Median Line -->
+<path d="M 40,20 C 130,26 230,36 395,58" fill="none" stroke="#7C3AED" stroke-width="2.5"></path>
+<!-- Horizon markers -->
+<circle cx="40" cy="20" fill="#7C3AED" r="4"></circle>
+<circle cx="230" cy="36" fill="#7C3AED" r="4"></circle>
+<circle cx="395" cy="58" fill="#7C3AED" r="4"></circle>
+<!-- Confidence Percent Tag Values -->
+<text fill="#7C3AED" font-family="JetBrains Mono" font-size="10" font-weight="600" x="45" y="14">94%</text>
+<text fill="#7C3AED" font-family="JetBrains Mono" font-size="10" font-weight="600" x="235" y="30">88%</text>
+<text fill="#7C3AED" font-family="JetBrains Mono" font-size="10" font-weight="600" x="370" y="52">78%</text>
+<line stroke="#F1F0F4" stroke-width="1" x1="40" x2="395" y1="95" y2="95"></line>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="9" x="40" y="112">T+0h</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="9" x="130" y="112">T+12h</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="9" x="230" y="112">T+24h</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="9" x="315" y="112">T+48h</text>
+<text fill="#9CA3AF" font-family="JetBrains Mono" font-size="9" x="395" y="112">T+72h</text>
+</svg>
+</div>
+<div class="flex items-center justify-between pt-2 border-t border-surface-container-high text-body-sm font-mono-telemetry">
+<span class="text-on-surface-variant">Validation Check: Navier-Stokes Continuity</span>
+<span class="text-[#007D55] font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            Passed (&lt; 0.02% mass error)
+          </span>
+</div>
+</div>
+<!-- CARD 3: 4D Anomaly Bounding Box Matrix -->
+<div class="w-full bg-surface-container-lowest rounded-2xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Spatial Localization</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">4D Anomaly Bounding Box</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Spatio-temporal localization bounds (WGS84 &amp; Pressure Height)</p>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">view_in_ar</span>
+</div>
+<!-- Telemetry Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono-code text-body-sm">
+<thead>
+<tr class="text-on-surface-variant font-label-caps text-label-caps tracking-wider border-b border-surface-container-high">
+<th class="py-2 pr-2 font-semibold">TIME</th>
+<th class="py-2 px-2 font-semibold">LAT RANGE</th>
+<th class="py-2 px-2 font-semibold">LON RANGE</th>
+<th class="py-2 px-2 font-semibold text-right">PEAK</th>
+<th class="py-2 pl-2 font-semibold text-right">AREA</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low text-on-surface">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 pr-2 font-bold text-on-surface">T+0h</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">18.42°-18.68° N</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">73.74°-74.02° E</td>
+<td class="py-2 px-2 text-right font-medium">62.4 mm/h</td>
+<td class="py-2 pl-2 text-right text-on-surface-variant">420 km²</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 pr-2 font-bold text-on-surface">T+12h</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">18.60°-18.95° N</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">73.55°-73.88° E</td>
+<td class="py-2 px-2 text-right text-[#F97316] font-medium">74.8 mm/h</td>
+<td class="py-2 pl-2 text-right text-on-surface-variant">680 km²</td>
+</tr>
+<tr class="bg-red-50/60 font-semibold hover:bg-red-50 transition-colors">
+<td class="py-2 pr-2 text-[#DC2626] font-bold">T+24h</td>
+<td class="py-2 px-2 text-on-surface text-body-sm">18.82°-19.24° N</td>
+<td class="py-2 px-2 text-on-surface text-body-sm">73.30°-73.72° E</td>
+<td class="py-2 px-2 text-right text-[#DC2626]">84.2 mm/h</td>
+<td class="py-2 pl-2 text-right text-[#DC2626]">910 km²</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 pr-2 font-bold text-on-surface">T+48h</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">19.05°-19.48° N</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">73.12°-73.56° E</td>
+<td class="py-2 px-2 text-right font-medium">58.1 mm/h</td>
+<td class="py-2 pl-2 text-right text-on-surface-variant">760 km²</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 pr-2 font-bold text-on-surface">T+72h</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">19.28°-19.65° N</td>
+<td class="py-2 px-2 text-on-surface-variant text-body-sm">72.95°-73.40° E</td>
+<td class="py-2 px-2 text-right text-[#007D55] font-medium">32.5 mm/h</td>
+<td class="py-2 pl-2 text-right text-on-surface-variant">510 km²</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container-low text-body-sm font-mono-telemetry text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]">vertical_align_center</span>
+<span>Vertical column: 850 hPa to 300 hPa deep convective core</span>
+</div>
+</div>
+</div>
+</div>
+<!-- FLOATING WEATHER TIME MACHINE SCRUBBER DOCK -->
+<div class="fixed bottom-4 left-64 right-0 z-40 flex justify-center px-4 pointer-events-none">
+<div class="w-full max-w-4xl bg-[#0A0A0A] text-white p-3.5 rounded-2xl shadow-xl pointer-events-auto flex flex-col md:flex-row md:items-center justify-between gap-3">
+<!-- Playback Controls -->
+<div class="flex items-center gap-3">
+<button class="w-9 h-9 rounded-full bg-white text-black flex items-center justify-center hover:bg-neutral-200 transition-colors" id="playback-toggle" type="button">
+<span class="material-symbols-outlined text-[20px]">pause</span>
+</button>
+<button class="text-neutral-400 hover:text-white transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">skip_previous</span>
+</button>
+<button class="text-neutral-400 hover:text-white transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">skip_next</span>
+</button>
+<!-- Speed multiplier toggle -->
+<span class="px-2 py-0.5 rounded bg-[#18181B] text-neutral-300 font-mono-telemetry text-body-sm font-semibold cursor-pointer">
+          1x
+        </span>
+</div>
+<!-- Time Steps Interactive Buttons -->
+<div class="flex items-center gap-1.5 font-mono-telemetry text-body-sm bg-[#18181B] p-1 rounded-xl">
+<button class="px-2.5 py-1 rounded-lg text-neutral-400 hover:text-white transition-colors" type="button">T+0h</button>
+<button class="px-2.5 py-1 rounded-lg text-neutral-400 hover:text-white transition-colors" type="button">T+12h</button>
+<button class="px-3 py-1 rounded-lg bg-primary-container text-white font-bold shadow-xs" type="button">T+24h</button>
+<button class="px-2.5 py-1 rounded-lg text-neutral-400 hover:text-white transition-colors" type="button">T+48h</button>
+<button class="px-2.5 py-1 rounded-lg text-neutral-400 hover:text-white transition-colors" type="button">T+72h</button>
+</div>
+<!-- Mini Sparkline for Cumulative Velocity -->
+<div class="hidden sm:flex items-center gap-2 px-2 border-l border-[#27272A]">
+<div class="flex flex-col text-left">
+<span class="text-[10px] font-label-caps text-neutral-400 uppercase">Rainfall Rate</span>
+<span class="font-mono-telemetry text-body-sm text-red-400 font-bold">84.2 mm/h</span>
+</div>
+<svg class="overflow-visible" height="20" width="48">
+<path d="M 0,16 L 12,12 L 24,4 L 36,9 L 48,17" fill="none" stroke="#DC2626" stroke-width="1.8"></path>
+<circle cx="24" cy="4" fill="#DC2626" r="2.5"></circle>
+</svg>
+</div>
+<!-- Forecast Valid Stamp & Status Badge -->
+<div class="flex items-center gap-2">
+<div class="flex flex-col text-right">
+<span class="text-[10px] font-label-caps text-neutral-400 uppercase tracking-wider">Forecast Valid</span>
+<span class="font-mono-code text-body-sm text-white font-medium">2026-07-14 06:00 UTC</span>
+</div>
+<span class="hidden xl:inline-flex text-[10px] font-mono-telemetry px-2 py-0.5 rounded bg-amber-500/20 text-amber-300">
+          Sample
+        </span>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for playback pause/play state
+  const toggleBtn = document.getElementById('playback-toggle');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const icon = toggleBtn.querySelector('span');
+      if (icon.textContent.trim() === 'pause') {
+        icon.textContent = 'play_arrow';
+      } else {
+        icon.textContent = 'pause';
+      }
+    });
+  }
+</script></main></div></body></html>

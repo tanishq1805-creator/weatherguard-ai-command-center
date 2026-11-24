@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#f6f2f7", "outline": "#737686", "primary-fixed-dim": "#b4c5ff", "error": "#ba1a1a", "on-tertiary-fixed": "#002113", "surface-variant": "#e4e1e6", "secondary-container": "#8a4cfc", "surface-container-lowest": "#ffffff", "secondary-fixed": "#eaddff", "surface-container-high": "#eae7eb", "surface-tint": "#0053db", "background": "#fbf8fc", "on-background": "#1b1b1e", "on-error": "#ffffff", "on-primary": "#ffffff", "on-primary-fixed": "#00174b", "primary-fixed": "#dbe1ff", "primary-container": "#2563eb", "inverse-surface": "#303033", "tertiary-container": "#007d55", "tertiary-fixed-dim": "#4edea3", "on-tertiary": "#ffffff", "surface-bright": "#fbf8fc", "secondary": "#712ae2", "on-primary-container": "#eeefff", "on-secondary-container": "#fffbff", "error-container": "#ffdad6", "primary": "#004ac6", "surface-dim": "#dcd9dd", "inverse-on-surface": "#f3f0f4", "on-secondary": "#ffffff", "on-secondary-fixed": "#25005a", "secondary-fixed-dim": "#d2bbff", "on-error-container": "#93000a", "tertiary-fixed": "#6ffbbe", "tertiary": "#006242", "outline-variant": "#c3c6d7", "surface-container": "#f0edf1", "on-primary-fixed-variant": "#003ea8", "on-tertiary-fixed-variant": "#005236", "on-surface": "#1b1b1e", "surface-container-highest": "#e4e1e6", "surface": "#fbf8fc", "on-tertiary-container": "#bdffdb", "on-secondary-fixed-variant": "#5a00c6", "on-surface-variant": "#434655", "inverse-primary": "#b4c5ff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "margin-desktop": "2rem", "gutter": "1rem", "space-xl": "2rem", "gutter-desktop": "1.5rem", "space-md": "1rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-lg": ["Inter"], "headline-xl-mobile": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"], "mono-code": ["JetBrains Mono"], "mono-metric": ["JetBrains Mono"], "headline-lg-mobile": ["Inter"], "label-caps": ["Inter"], "body-md": ["Inter"], "headline-xl": ["Inter"], "mono-telemetry": ["JetBrains Mono"], "body-sm": ["Inter"] }, "fontSize": { "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}], "headline-xl-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}], "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "400"}], "headline-md": ["18px", {"lineHeight": "26px", "letterSpacing": "-0.015em", "fontWeight": "600"}], "mono-code": ["13px", {"lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500"}], "mono-metric": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.03em", "fontWeight": "600"}], "headline-lg-mobile": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600"}], "label-caps": ["10px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "700"}], "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}], "headline-xl": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "600"}], "mono-telemetry": ["11px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}], "body-sm": ["12px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}] } } } };</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-[#0A0A0A] text-[#FFFFFF]"><div class="h-14 w-full px-margin-desktop flex items-center justify-between"><div class="flex items-center gap-space-md"><img alt="WeatherGuard AI clean minimalist vector logo with shield contour and precision meteorological atmospheric isobar wave glyph in pure white on near-black badge.. Brand logo. - Primary color: #2563eb - Font: inter - Mode: light - Roundness: rounded-md" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WG6Fmb-eFCHznvdv8Mv-NQ85VXu2qGDJOrFCyYKmLM-saSJOnzHzVbpeQcxFXkBYq9N7-d_A5tphkWnDjRKxQNT4JC9k98HVRT6aPBcpNlWKcHs34ApGnKo1sFnLYKYke5yLZMrp0sQvdm9uYGbslFt5loaj8xrkJw_4D--X80irRSDQd4bdbks8_TdfJH_OzBpQpNdCL6ivH3WmFPC8kN7TNrdcysjUJkZWr9A1BtQvZGk6o4FHh2bGs"/><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-[#FFFFFF]">WeatherGuard AI</span><span class="font-label-caps text-label-caps uppercase px-space-xs py-0.5 rounded bg-surface-variant/20 text-[#A1A1AA] border border-[#27272A]">PROTOTYPE / SAMPLE DATA</span></div></div><nav class="hidden xl:flex items-center gap-space-xs bg-[#121212] p-1 rounded-lg border border-[#27272A]" data-active-classes="bg-[#18181B] text-[#FFFFFF] shadow-sm"><a class="px-space-md py-1.5 rounded-md font-body-sm text-body-sm text-[#A1A1AA] hover:bg-[#18181B] hover:text-[#FFFFFF] transition-colors" data-path="command-center" href="#">Command Center</a><a class="px-space-md py-1.5 rounded-md font-body-sm text-body-sm text-[#A1A1AA] hover:bg-[#18181B] hover:text-[#FFFFFF] transition-colors" data-path="anomaly-detail" href="#">Anomaly Detail</a><a class="px-space-md py-1.5 rounded-md font-body-sm text-body-sm text-[#A1A1AA] hover:bg-[#18181B] hover:text-[#FFFFFF] transition-colors" data-path="impact-zones" href="#">Impact Zones</a><a aria-current="page" class="px-space-md py-1.5 rounded-md font-body-sm transition-colors flex items-center gap-1.5 bg-[#18181B] text-[#FFFFFF] shadow-sm" data-path="alerts" href="#">Alerts <span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span></a><a class="px-space-md py-1.5 rounded-md font-body-sm text-body-sm text-[#A1A1AA] hover:bg-[#18181B] hover:text-[#FFFFFF] transition-colors" data-path="data-and-validation" href="#">Data &amp; Validation</a><a class="px-space-md py-1.5 rounded-md font-body-sm text-body-sm text-[#A1A1AA] hover:bg-[#18181B] hover:text-[#FFFFFF] transition-colors" data-path="citizen-ai" href="#">Citizen AI</a></nav><div class="flex items-center gap-space-md"><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 rounded bg-[#18181B] border border-[#27272A]"><span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span><span class="font-mono-telemetry text-mono-telemetry text-[#E4E4E7]">UTC 08:30 | 14 Oct</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-[#27272A]"><div class="text-right hidden sm:block"><div class="font-label-caps text-label-caps uppercase text-[#71717A]">SysOp Level 4</div><div class="font-mono-code text-mono-code text-[#E4E4E7]">dr.s-vance</div></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 bg-surface-container-lowest border-r border-[#E4E4E7] z-40 flex flex-col justify-between"><div class="flex flex-col"><div class="px-space-md py-space-sm border-b border-[#E4E4E7] flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Geospatial Layers</span><span class="font-mono-telemetry text-mono-telemetry text-primary-container font-semibold">GNN-v4.2</span></div><nav class="p-space-sm flex flex-col gap-1" data-active-classes="bg-surface-container-high text-on-surface font-semibold"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="command-center" href="#"><span class="material-symbols-outlined text-[18px]">radar</span>Radar &amp; Wind Tensors</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="anomaly-detail" href="#"><span class="material-symbols-outlined text-[18px]">cyclone</span>Deep Convective Cells</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="impact-zones" href="#"><span class="material-symbols-outlined text-[18px]">domain</span>Hydrological Basin Risk</a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg transition-colors bg-surface-container-high text-on-surface font-semibold" data-path="alerts" href="#"><span class="material-symbols-outlined text-[18px] text-error">crisis_alert</span>Active Triages (14)</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="data-and-validation" href="#"><span class="material-symbols-outlined text-[18px]">memory</span>Physics Convergence</a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-body-sm text-body-sm" data-path="citizen-ai" href="#"><span class="material-symbols-outlined text-[18px] text-secondary">neurology</span>Citizen Inference Stream</a></nav></div><div class="p-space-md border-t border-[#E4E4E7] bg-surface-container-low"><div class="flex items-center justify-between mb-space-xs"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Atmospheric Sensor Grid</span><span class="font-mono-telemetry text-mono-telemetry text-tertiary font-bold">99.8% LIVE</span></div><div class="w-full bg-[#E4E4E7] h-1.5 rounded-full overflow-hidden"><div class="bg-tertiary-container h-full w-[99.8%]"></div></div></div></aside><div class="pl-64"><main class="relative pt-14 bg-background min-h-screen"><div class="flex flex-col w-full">
+<!-- Disclaimer Masthead Ribbon -->
+<div class="w-full bg-[#18181B] text-[#A1A1AA] px-margin-desktop py-1.5 flex items-center justify-between border-b border-[#27272A]">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded font-label-caps text-label-caps uppercase bg-error/20 text-[#FCA5A5] border border-error/30 tracking-wider">
+        Operational Preview
+      </span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#E4E4E7]">
+        PROTOTYPE / SAMPLE DATA — For demonstration only. No real-time operational claims.
+      </span>
+</div>
+<div class="hidden md:flex items-center gap-space-md text-[#71717A] font-mono-telemetry text-mono-telemetry">
+<span>REF: CAP-AU-IN/NDMA-2024.10</span>
+<span>VALIDATOR: NCMRWF-GNN-BRIDGE-v4</span>
+</div>
+</div>
+<!-- Main Alerts Canvas Container -->
+<div class="p-margin-desktop space-y-space-md bg-background">
+<!-- Header & Filter Management Card -->
+<header class="bg-surface-container-lowest border border-[#E4E4E7] rounded-xl p-space-md shadow-sm space-y-space-md">
+<!-- Title & Operational Stats Row -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md border-b border-[#E4E4E7] pb-space-md">
+<div>
+<div class="flex items-center gap-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-[#0A0A0A] tracking-tight">CAP Weather Alerts</h1>
+<span class="font-mono-code text-mono-code uppercase px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-semibold">
+              CAP v1.2 Active
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+            Common Alerting Protocol (CAP-AU / NDMA compliant broadcast feed &amp; multi-channel dispatch engine)
+          </p>
+</div>
+<!-- Metric Readout Tiles -->
+<div class="flex flex-wrap items-center gap-space-sm">
+<div class="bg-surface-container-low px-space-md py-space-xs rounded-lg border border-[#E4E4E7] flex flex-col justify-center">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A]">Active Dispatches</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-mono-metric text-mono-metric text-[#0A0A0A]">3</span>
+<span class="font-mono-telemetry text-mono-telemetry text-tertiary">/ 5 Monitored</span>
+</div>
+</div>
+<div class="bg-surface-container-low px-space-md py-space-xs rounded-lg border border-[#E4E4E7] flex flex-col justify-center">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A]">Physics Verification</span>
+<div class="flex items-baseline gap-1.5">
+<span class="font-mono-metric text-mono-metric text-tertiary">94.2%</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">Consensus</span>
+</div>
+</div>
+<div class="bg-surface-container-low px-space-md py-space-xs rounded-lg border border-[#E4E4E7] flex flex-col justify-center">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A]">Broker Status</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span>
+<span class="font-mono-code text-mono-code text-[#0A0A0A] font-semibold">Auto-CAP Ready</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Controls & Multidimensional Filters Row -->
+<div class="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<!-- Severity Selector Pills -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] mr-1">Severity:</span>
+<button class="px-space-sm py-1 rounded-md text-body-sm font-body-sm bg-[#0A0A0A] text-[#FFFFFF] shadow-sm flex items-center gap-1.5" type="button">
+<span>All</span>
+<span class="font-mono-telemetry text-mono-telemetry bg-[#27272A] px-1 rounded text-[#E4E4E7]">12</span>
+</button>
+<button class="px-space-sm py-1 rounded-md text-body-sm font-body-sm bg-surface-container hover:bg-surface-container-high text-on-surface border border-[#E4E4E7] flex items-center gap-1.5 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-[#EF4444]"></span>
+<span>Extreme / Red</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">2</span>
+</button>
+<button class="px-space-sm py-1 rounded-md text-body-sm font-body-sm bg-surface-container hover:bg-surface-container-high text-on-surface border border-[#E4E4E7] flex items-center gap-1.5 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-[#F97316]"></span>
+<span>Severe / Orange</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">4</span>
+</button>
+<button class="px-space-sm py-1 rounded-md text-body-sm font-body-sm bg-surface-container hover:bg-surface-container-high text-on-surface border border-[#E4E4E7] flex items-center gap-1.5 transition-colors" type="button">
+<span class="w-2 h-2 rounded-full bg-[#EAB308]"></span>
+<span>Moderate / Yellow</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">6</span>
+</button>
+</div>
+<!-- Filtering Dropdowns and Input Bar -->
+<div class="flex flex-wrap items-center gap-space-sm flex-1 xl:justify-end">
+<!-- Region Dropdown -->
+<div class="relative min-w-[200px]">
+<select aria-label="Geographic Region Filter" class="w-full bg-surface-container-lowest border border-[#E4E4E7] text-on-surface text-body-sm font-body-sm rounded-lg px-3 py-1.5 pr-8 appearance-none focus:outline-none focus:border-primary-container">
+<option selected="">Maharashtra (All Districts)</option>
+<option>Pune District</option>
+<option>Raigad Coastal</option>
+<option>Ratnagiri Zone</option>
+<option>Mumbai Metropolitan</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-[#71717A] absolute right-2 top-2 pointer-events-none">expand_more</span>
+</div>
+<!-- Time Horizon Segmented Switch -->
+<div class="inline-flex rounded-lg border border-[#E4E4E7] bg-surface-container-low p-0.5" role="group">
+<button class="px-2.5 py-1 text-body-sm font-body-sm rounded bg-primary-container text-on-primary-container shadow-sm font-medium" type="button">24h</button>
+<button class="px-2.5 py-1 text-body-sm font-body-sm rounded text-on-surface-variant hover:text-on-surface" type="button">48h</button>
+<button class="px-2.5 py-1 text-body-sm font-body-sm rounded text-on-surface-variant hover:text-on-surface" type="button">72h</button>
+<button class="px-2.5 py-1 text-body-sm font-body-sm rounded text-on-surface-variant hover:text-on-surface" type="button">Custom</button>
+</div>
+<!-- Status Dropdown -->
+<div class="relative min-w-[160px]">
+<select aria-label="CAP Dispatch Status Filter" class="w-full bg-surface-container-lowest border border-[#E4E4E7] text-on-surface text-body-sm font-body-sm rounded-lg px-3 py-1.5 pr-8 appearance-none focus:outline-none focus:border-primary-container">
+<option selected="">Active / Published</option>
+<option>Pending Sign-off</option>
+<option>Draft / Simulation</option>
+<option>Archived</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-[#71717A] absolute right-2 top-2 pointer-events-none">filter_list</span>
+</div>
+<!-- Quick Search -->
+<div class="relative min-w-[220px] flex-grow xl:flex-grow-0">
+<span class="material-symbols-outlined text-[18px] text-[#71717A] absolute left-2.5 top-2">search</span>
+<input class="w-full pl-8 pr-3 py-1.5 bg-surface-container-lowest border border-[#E4E4E7] rounded-lg text-body-sm font-body-sm focus:outline-none focus:border-primary-container" placeholder="Search Alert ID, CAP urn..." type="text"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Two-Column Main Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-start">
+<!-- Left Column: Alert List Feed (42% / ~5 of 12 cols) -->
+<section aria-label="Alert List Feed" class="lg:col-span-5 space-y-space-sm">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-[#0A0A0A]">Alert Stream</span>
+<span class="font-mono-telemetry text-mono-telemetry px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-semibold">5 Active</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A]">Sort:</span>
+<button class="text-body-sm font-body-sm font-medium text-primary-container hover:underline inline-flex items-center gap-0.5" type="button">
+              Urgency / Impact <span class="material-symbols-outlined text-[14px]">arrow_drop_down</span>
+</button>
+</div>
+</div>
+<div class="space-y-space-sm" id="alert-list-container">
+<!-- Alert Card 1: SELECTED STATE (Red / Extreme) -->
+<article class="relative bg-surface-container-lowest border-2 border-primary-container rounded-xl shadow-md p-space-md cursor-pointer transition-all duration-150 overflow-hidden">
+<!-- Left Severity Stripe -->
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#EF4444]"></div>
+<div class="pl-2 space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code font-semibold text-[#0A0A0A]">CAP-WG-2024-0891</span>
+<span class="px-1.5 py-0.5 rounded font-label-caps text-label-caps uppercase bg-error text-on-error font-bold tracking-wider">Extreme</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim animate-ping"></span>
+<span class="font-mono-telemetry text-mono-telemetry text-tertiary font-bold uppercase tracking-wider">DISPATCH READY</span>
+</div>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-[#0A0A0A] leading-tight">Flash Flood &amp; Extreme Precipitation</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Pune District (Haveli, Maval &amp; Pune Urban Basin)
+                </p>
+</div>
+<!-- Tags / Meta Pills -->
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded border border-[#0A0A0A] text-[#0A0A0A] font-label-caps text-label-caps uppercase">Immediate</span>
+<span class="px-2 py-0.5 rounded bg-secondary/10 border border-secondary/20 text-secondary font-mono-telemetry text-mono-telemetry font-semibold">AI-Detected (GNN-98%)</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[#71717A] font-mono-telemetry text-mono-telemetry">Cat: Met / Inundation</span>
+</div>
+<!-- Timing Info Bar -->
+<div class="pt-2 border-t border-[#E4E4E7] flex items-center justify-between text-[#71717A] font-mono-telemetry text-mono-telemetry">
+<span>Eff: Today 14:00 UTC (T+0h)</span>
+<span>Exp: T+12h (Tomorrow 02:00)</span>
+</div>
+</div>
+</article>
+<!-- Alert Card 2: Orange / Severe -->
+<article class="relative bg-surface-container-lowest border border-[#E4E4E7] hover:border-outline-variant rounded-xl p-space-md cursor-pointer transition-all duration-150 overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#F97316]"></div>
+<div class="pl-2 space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-on-surface-variant font-medium">CAP-WG-2024-0889</span>
+<span class="px-1.5 py-0.5 rounded font-label-caps text-label-caps uppercase bg-[#F97316] text-[#FFFFFF] font-bold">Severe</span>
+</div>
+<span class="font-mono-telemetry text-mono-telemetry text-outline uppercase font-semibold">Awaiting Sign-off</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-[#18181B] group-hover:text-primary-container transition-colors">Severe Cyclonic Wind Gusts (&gt;95 km/h)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Raigad &amp; Ratnagiri Coastal Corridor
+                </p>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container border border-[#E4E4E7] text-[#71717A] font-label-caps text-label-caps uppercase">Expected</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[#71717A] font-mono-telemetry text-mono-telemetry">Wind Tensor: GFS+HRRR</span>
+</div>
+<div class="pt-2 border-t border-[#E4E4E7] flex items-center justify-between text-[#71717A] font-mono-telemetry text-mono-telemetry">
+<span>Eff: T+6h (Today 20:00 UTC)</span>
+<span>Exp: T+24h</span>
+</div>
+</div>
+</article>
+<!-- Alert Card 3: Red / Extreme -->
+<article class="relative bg-surface-container-lowest border border-[#E4E4E7] hover:border-outline-variant rounded-xl p-space-md cursor-pointer transition-all duration-150 overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#EF4444]"></div>
+<div class="pl-2 space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-on-surface-variant font-medium">CAP-WG-2024-0888</span>
+<span class="px-1.5 py-0.5 rounded font-label-caps text-label-caps uppercase bg-[#EF4444] text-on-error font-bold">Extreme</span>
+</div>
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-mono-telemetry text-mono-telemetry uppercase font-semibold">Broadcasted</span>
+</div>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-[#18181B] group-hover:text-primary-container transition-colors">Cloudburst &amp; Rapid Inundation</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Mahabaleshwar &amp; Western Ghats Escarpment
+                </p>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded border border-[#0A0A0A] text-[#0A0A0A] font-label-caps text-label-caps uppercase">Immediate</span>
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-mono-telemetry text-mono-telemetry">Cell: DCC-04</span>
+</div>
+<div class="pt-2 border-t border-[#E4E4E7] flex items-center justify-between text-[#71717A] font-mono-telemetry text-mono-telemetry">
+<span>Eff: T+2h</span>
+<span>Exp: T+10h</span>
+</div>
+</div>
+</article>
+<!-- Alert Card 4: Yellow / Moderate -->
+<article class="relative bg-surface-container-lowest border border-[#E4E4E7] hover:border-outline-variant rounded-xl p-space-md cursor-pointer transition-all duration-150 overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1.5 bg-[#EAB308]"></div>
+<div class="pl-2 space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-mono-code text-mono-code text-on-surface-variant font-medium">CAP-WG-2024-0882</span>
+<span class="px-1.5 py-0.5 rounded font-label-caps text-label-caps uppercase bg-[#EAB308] text-[#0A0A0A] font-bold">Moderate</span>
+</div>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A] uppercase font-semibold">Monitoring</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-[#18181B] group-hover:text-primary-container transition-colors">Moderate Urban Waterlogging &amp; Thunderstorm</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                  Thane &amp; Kalyan Sub-basin
+                </p>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 pt-1">
+<span class="px-2 py-0.5 rounded bg-surface-container text-[#71717A] font-label-caps text-label-caps uppercase">Future</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-[#71717A] font-mono-telemetry text-mono-telemetry">Radar Lead: 18h</span>
+</div>
+<div class="pt-2 border-t border-[#E4E4E7] flex items-center justify-between text-[#71717A] font-mono-telemetry text-mono-telemetry">
+<span>Eff: T+18h</span>
+<span>Exp: T+36h</span>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- Right Column: Selected Alert Detail Inspector (58% / ~7 of 12 cols) -->
+<section aria-label="Alert Detail Inspector" class="lg:col-span-7 bg-surface-container-lowest border border-[#E4E4E7] rounded-xl shadow-sm p-space-lg space-y-space-md">
+<!-- Inspector Top Status Row -->
+<div class="space-y-space-sm border-b border-[#E4E4E7] pb-space-md">
+<div class="flex flex-wrap items-center justify-between gap-space-xs">
+<a class="inline-flex items-center gap-1 text-primary-container font-mono-code text-mono-code hover:underline font-medium" href="#">
+<span class="material-symbols-outlined text-[16px]">link</span>
+<span>Linked Anomaly: WG-001 (Extreme Rainfall Cell)</span>
+</a>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-mono-telemetry text-mono-telemetry font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                VALIDATED
+              </span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A] border border-[#E4E4E7] px-2 py-0.5 rounded">
+                CAP Protocol v1.2 Compliant
+              </span>
+</div>
+</div>
+<div>
+<span class="font-mono-telemetry text-mono-telemetry uppercase text-[#71717A] tracking-wider block">Target Identifier: urn:oid:2.49.0.1.356.1.1.2024.0891</span>
+<h2 class="font-headline-lg text-headline-lg text-[#0A0A0A] tracking-tight mt-0.5">
+              CAP-WG-2024-0891: Flash Flood &amp; Extreme Precipitation Alert
+            </h2>
+</div>
+</div>
+<!-- Standard CAP XML/JSON Fields Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-sm p-space-md bg-surface-container-low rounded-xl border border-[#E4E4E7]">
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Event Type</span>
+<span class="font-body-md text-body-md font-semibold text-[#0A0A0A] mt-0.5 block">Flash Flood / Hydro Extreme</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Severity Indicator</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2.5 h-2.5 rounded-full bg-[#EF4444]"></span>
+<span class="font-mono-code text-mono-code font-bold text-[#EF4444]">Extreme (Red Tier 1)</span>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Urgency Status</span>
+<div class="mt-1">
+<span class="px-2 py-0.5 rounded bg-[#0A0A0A] text-[#FFFFFF] font-mono-telemetry text-mono-telemetry font-bold">Immediate Response</span>
+</div>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Algorithmic Certainty</span>
+<span class="font-mono-code text-mono-code font-semibold text-[#0A0A0A] mt-0.5 block">Observed / High (92.4%)</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Effective Window</span>
+<span class="font-mono-telemetry text-mono-telemetry text-on-surface mt-0.5 block">2024-10-14T14:00:00+05:30</span>
+</div>
+<div>
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Expiry Boundary</span>
+<span class="font-mono-telemetry text-mono-telemetry text-on-surface mt-0.5 block">2024-10-15T02:00:00+05:30</span>
+</div>
+<div class="sm:col-span-2 lg:col-span-3 pt-2 border-t border-[#E4E4E7]">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Geospatial Scope / Polygons</span>
+<span class="font-mono-code text-mono-code text-[#0A0A0A] text-body-sm mt-0.5 block break-all">
+              Pune District: Haveli, Maval, Mulshi, Pune Municipal Area (Centroid: 18.5204° N, 73.8567° E; Polygon: 18.41,73.72 18.65,73.74 18.68,73.99 18.45,73.98)
+            </span>
+</div>
+<div class="sm:col-span-2 lg:col-span-3 border-t border-[#E4E4E7] pt-2">
+<span class="font-label-caps text-label-caps uppercase text-[#71717A] block">Sender System Lineage</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A] mt-0.5 block">
+              WeatherGuard-AI-AutoCAP-v1.2 // NCMRWF-IMD-Physics-Bridge // GNN-Trained-Convective-Surrogate
+            </span>
+</div>
+</div>
+<!-- Public Instruction Callout -->
+<div class="p-space-md bg-[#F9FAFB] rounded-xl border-l-4 border-l-error border border-[#E4E4E7] space-y-1">
+<div class="flex items-center gap-1.5 text-error">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+<span class="font-label-caps text-label-caps uppercase font-bold tracking-wider">Public Instruction (CAP &lt;instruction&gt; payload)</span>
+</div>
+<p class="font-body-md text-body-md text-[#18181B] leading-relaxed">
+            Move to elevated ground immediately if residing along riverbanks (Mula-Mutha river basin). Avoid underpasses, culverts, low-lying causeways, and stormwater drainage channels. Keep emergency supplies and batteries ready, and comply strictly with District Disaster Management Authority (DDMA) evacuation routes.
+          </p>
+</div>
+<!-- Translation Engine & Multi-Lingual Broadcast Module -->
+<div class="rounded-xl border border-[#E4E4E7] p-space-md space-y-space-sm bg-surface-container-lowest">
+<div class="flex items-center justify-between border-b border-[#E4E4E7] pb-space-xs">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">translate</span>
+<span class="font-headline-md text-headline-md text-[#0A0A0A]">Broadcast Translation Engine</span>
+<span class="px-2 py-0.5 rounded bg-secondary/10 text-secondary font-mono-telemetry text-mono-telemetry font-medium">Bilingual GIST verified</span>
+</div>
+<!-- Language Switch Tabs -->
+<nav aria-label="Translation Languages" class="flex items-center gap-1">
+<button class="px-3 py-1 font-body-sm text-body-sm text-[#71717A] hover:text-[#0A0A0A] rounded hover:bg-surface-container transition-colors" type="button">
+                English
+              </button>
+<button class="px-3 py-1 font-body-sm text-body-sm font-semibold text-primary-container border-b-2 border-primary-container bg-primary-fixed/30 rounded-t" type="button">
+                मराठी (Regional Active)
+              </button>
+<button class="px-3 py-1 font-body-sm text-body-sm text-[#71717A] hover:text-[#0A0A0A] rounded hover:bg-surface-container transition-colors" type="button">
+                हिंदी
+              </button>
+</nav>
+</div>
+<!-- Broadcast Message Preview -->
+<div class="p-space-md bg-surface-container-low rounded-lg border border-[#E4E4E7]">
+<p class="text-body-md font-body-md text-[#0A0A0A] leading-relaxed font-sans font-medium">
+              तातडीचा इशारा: पुणे जिल्हा आणि घाटमाथा परिसरात अतिवृष्टीमुळे अचानक पूर येण्याची शक्यता निर्माण झाली आहे. मुळा-मुठा नदीकाठच्या व सखल भागातील नागरिकांनी त्वरित सुरक्षितस्थळी स्थलांतर करावे. भुयारी मार्ग, पूल आणि साचलेल्या पाण्यातून जाणे टाळावे. जिल्हा आपत्ती व्यवस्थापन प्राधिकरणाच्या (DDMA) सूचनांचे पालन करा.
+            </p>
+</div>
+<!-- TTS Synthesizer Control -->
+<div class="flex flex-wrap items-center justify-between pt-1 gap-2">
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E4E4E7] bg-surface-container-lowest hover:bg-surface-container text-[#0A0A0A] font-body-sm text-body-sm transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary-container">volume_up</span>
+<span>Synthesize Marathi Voice Broadcast</span>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A] ml-1">WAV / 24kHz</span>
+</button>
+<span class="text-[#71717A] font-mono-telemetry text-mono-telemetry">Auto-Transcribe Confidence: 99.1%</span>
+</div>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">Target: SMS, IVR, Cell Broadcast &amp; Siren Network</span>
+</div>
+</div>
+<!-- 5 km Impact Map Micro-Card -->
+<div class="rounded-xl border border-[#E4E4E7] overflow-hidden bg-surface-container-lowest">
+<div class="p-space-sm bg-surface-container flex items-center justify-between border-b border-[#E4E4E7]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-[#0A0A0A]">map</span>
+<span class="font-headline-md text-headline-md text-[#0A0A0A]">Impact Zone Geometry (~5 km Downscaled AI Mesh)</span>
+</div>
+<span class="font-mono-telemetry text-mono-telemetry text-[#71717A]">EPSG:4326 WGS84</span>
+</div>
+<!-- Micro-Map Vector Canvas (Pale CartoDB Positron Styled) -->
+<div class="relative w-full h-56 bg-[#F4F4F6] overflow-hidden">
+<!-- SVG Map Substrate with Topography, Drainage & Danger Zones -->
+<svg class="w-full h-full" fill="none" preserveaspectratio="xMidYMid slice" viewbox="0 0 700 240" xmlns="http://www.w3.org/2000/svg">
+<!-- Grid lines -->
+<defs>
+<pattern height="40" id="grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E4E4E7" stroke-width="0.8"></path>
+</pattern>
+<radialgradient cx="50%" cy="50%" id="dangerGrad" r="50%">
+<stop offset="0%" stop-color="#EF4444" stop-opacity="0.45"></stop>
+<stop offset="60%" stop-color="#EF4444" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#EF4444" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="#FBF8FC" height="100%" width="100%"></rect>
+<rect fill="url(#grid)" height="100%" width="100%"></rect>
+<!-- River Arteries (Mula & Mutha) -->
+<path d="M 20 80 Q 150 120 280 110 T 450 130 T 680 90" fill="none" stroke="#93C5FD" stroke-linecap="round" stroke-width="4"></path>
+<path d="M 120 230 Q 230 190 280 110" fill="none" stroke="#93C5FD" stroke-linecap="round" stroke-width="3"></path>
+<text fill="#3B82F6" font-family="JetBrains Mono" font-size="10" font-weight="600" x="500" y="80">Mula-Mutha Confluence</text>
+<!-- Escarpment Contours -->
+<path d="M 60 40 Q 180 30 240 60 T 380 50" fill="none" stroke="#D4D4D8" stroke-dasharray="3 3" stroke-width="1.2"></path>
+<path d="M 80 180 Q 220 220 340 190 T 520 210" fill="none" stroke="#D4D4D8" stroke-dasharray="3 3" stroke-width="1.2"></path>
+<!-- Orange Buffer Zone Contour -->
+<ellipse cx="360" cy="120" fill="#F97316" fill-opacity="0.12" rx="140" ry="75" stroke="#F97316" stroke-dasharray="4 2" stroke-width="1.5"></ellipse>
+<!-- High-intensity Red Flash Flood Polygon -->
+<polygon fill="url(#dangerGrad)" points="310,75 420,85 450,140 370,165 290,140 280,100" stroke="#EF4444" stroke-width="2.5"></polygon>
+<!-- Center Inundation Centroid Marker -->
+<circle cx="360" cy="120" fill="#EF4444" r="5"></circle>
+<circle class="animate-ping" cx="360" cy="120" r="14" stroke="#EF4444" stroke-opacity="0.6" stroke-width="1.5"></circle>
+<!-- Location Labels -->
+<text fill="#0A0A0A" font-family="Inter" font-size="11" font-weight="700" x="375" y="115">Pune Urban Basin</text>
+<text fill="#EF4444" font-family="JetBrains Mono" font-size="9" font-weight="600" x="375" y="128">INUNDATION APEX: +2.8m</text>
+<text fill="#71717A" font-family="Inter" font-size="9" x="210" y="165">Haveli Sub-District</text>
+<text fill="#71717A" font-family="Inter" font-size="9" x="440" y="65">Maval Range</text>
+</svg>
+<!-- Floating Micro-Telemetry Overlays -->
+<div class="absolute bottom-2 left-2 bg-[#0A0A0A]/90 text-[#FFFFFF] backdrop-blur-sm px-2.5 py-1.5 rounded-lg flex items-center gap-space-md text-mono-telemetry font-mono-telemetry border border-[#27272A]">
+<div>
+<span class="text-[#A1A1AA] uppercase block text-[9px]">Peak Intensity</span>
+<span class="text-[#EF4444] font-bold">142 mm / 6h</span>
+</div>
+<div class="border-l border-[#27272A] pl-2.5">
+<span class="text-[#A1A1AA] uppercase block text-[9px]">Affected Pop. (Est.)</span>
+<span class="text-[#FFFFFF] font-bold">~380,000</span>
+</div>
+<div class="border-l border-[#27272A] pl-2.5 hidden sm:block">
+<span class="text-[#A1A1AA] uppercase block text-[9px]">Mesh Centroid</span>
+<span class="text-[#E4E4E7]">18.53° N, 73.84° E</span>
+</div>
+</div>
+<!-- Map Controls Pin -->
+<div class="absolute top-2 right-2 flex flex-col gap-1 bg-surface-container-lowest/90 border border-[#E4E4E7] rounded-md shadow-sm p-1">
+<button aria-label="Zoom in map" class="w-6 h-6 flex items-center justify-center hover:bg-surface-container text-[#0A0A0A]" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<button aria-label="Zoom out map" class="w-6 h-6 flex items-center justify-center hover:bg-surface-container text-[#0A0A0A]" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button aria-label="Reset map extent" class="w-6 h-6 flex items-center justify-center hover:bg-surface-container text-[#0A0A0A]" type="button">
+<span class="material-symbols-outlined text-[16px]">filter_center_focus</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dispatch Controls & Sign-off Action Bar -->
+<footer class="pt-space-md border-t border-[#E4E4E7] flex flex-col xl:flex-row xl:items-center justify-between gap-space-md">
+<!-- Verification Stamp -->
+<div class="flex items-center gap-space-xs">
+<span class="w-7 h-7 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</span>
+<div>
+<div class="font-body-sm text-body-sm font-semibold text-[#0A0A0A]">
+                Validation Sign-off: Dr. S. Rao (IMD/NCMRWF Physics Bridge)
+              </div>
+<div class="font-mono-telemetry text-mono-telemetry text-tertiary flex items-center gap-1">
+<span>PASS: Navier-Stokes Conservation Check</span>
+<span>•</span>
+<span>Hash: #e8a931c</span>
+</div>
+</div>
+</div>
+<!-- Irrevocable & Utility Action Buttons -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="px-3.5 py-2 rounded-lg bg-[#0A0A0A] hover:bg-[#18181B] text-[#FFFFFF] text-body-sm font-body-sm font-medium transition-colors shadow-sm inline-flex items-center gap-1.5 active:scale-95" id="copy-cap-payload-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+<span>Copy CAP Payload (XML/JSON)</span>
+</button>
+<button class="px-3.5 py-2 rounded-lg bg-surface-container-lowest border border-[#0A0A0A] hover:bg-primary-container hover:text-[#FFFFFF] hover:border-primary-container text-[#0A0A0A] text-body-sm font-body-sm font-medium transition-all shadow-sm inline-flex items-center gap-1.5 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">send</span>
+<span>Send to API / CAP Broker</span>
+</button>
+<button class="px-3 py-2 rounded-lg hover:bg-surface-container text-[#71717A] hover:text-[#0A0A0A] text-body-sm font-body-sm font-medium transition-colors" type="button">
+              Simulate Broadcast
+            </button>
+</div>
+</footer>
+</section>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction: Dynamic visual copy confirmation for CAP payload button
+  document.getElementById('copy-cap-payload-btn')?.addEventListener('click', function() {
+    const originalText = this.innerHTML;
+    this.innerHTML = '<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">done</span><span class="text-tertiary-fixed font-semibold">Payload Copied to Clipboard</span>';
+    setTimeout(() => {
+      this.innerHTML = originalText;
+    }, 2000);
+  });
+</script></main></div></body></html>

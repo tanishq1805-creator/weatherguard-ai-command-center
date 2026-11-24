@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherGuard AI - Impact Zones</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              black: '#0A0A0A',
+              canvas: '#FFFFFF',
+              surface: '#F4F4F5',
+              border: '#E4E4E7',
+              text: '#18181B',
+              muted: '#71717A',
+              blue: '#2563EB',
+              violet: '#7C3AED',
+              green: '#10B981',
+              yellow: '#FACC15',
+              orange: '#F97316',
+              red: '#DC2626',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #f4f4f5; }
+    ::-webkit-scrollbar-thumb { background: #d4d4d8; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #a1a1aa; }
+  </style>
+</head>
+<body class="bg-[#F8F9FA] text-[#18181B] font-sans antialiased overflow-hidden h-screen w-screen flex flex-col select-none">
+
+  <!-- TOP BAR -->
+  <header class="h-14 bg-[#0A0A0A] text-white flex items-center justify-between px-5 shrink-0 z-40 border-b border-neutral-800">
+    <!-- Brand & Pipeline -->
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-neutral-900 border border-neutral-700 p-0.5 flex items-center justify-center overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida/AEtjO1WG6Fmb-eFCHznvdv8Mv-NQ85VXu2qGDJOrFCyYKmLM-saSJOnzHzVbpeQcxFXkBYq9N7-d_A5tphkWnDjRKxQNT4JC9k98HVRT6aPBcpNlWKcHs34ApGnKo1sFnLYKYke5yLZMrp0sQvdm9uYGbslFt5loaj8xrkJw_4D--X80irRSDQd4bdbks8_TdfJH_OzBpQpNdCL6ivH3WmFPC8kN7TNrdcysjUJkZWr9A1BtQvZGk6o4FHh2bGs" alt="WeatherGuard AI" class="w-full h-full object-cover">
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="font-bold tracking-tight text-sm text-white">WeatherGuard <span class="text-brand-violet text-xs uppercase tracking-wider font-semibold">AI</span></span>
+          <span class="bg-neutral-800 text-[10px] font-mono px-1.5 py-0.5 rounded text-neutral-300 border border-neutral-700">SIH 2026</span>
+        </div>
+      </div>
+
+      <div class="h-4 w-px bg-neutral-800"></div>
+
+      <!-- Pipeline Stepper -->
+      <nav class="hidden xl:flex items-center gap-1 text-[11px] font-medium tracking-wide">
+        <span class="text-neutral-400 px-2 py-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>DETECT</span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-400 px-2 py-1 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>TRACK</span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <!-- ACTIVE STEP -->
+        <span class="bg-brand-blue/20 text-brand-blue border border-brand-blue/50 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse"></span>DOWNSCALE
+        </span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-400 px-2 py-1">VALIDATE</span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-400 px-2 py-1">LOCALIZE</span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-400 px-2 py-1">EXPLAIN</span>
+        <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span class="text-neutral-400 px-2 py-1">ALERT</span>
+      </nav>
+    </div>
+
+    <!-- Right utility controls -->
+    <div class="flex items-center gap-3">
+      <!-- Region Selector -->
+      <div class="flex items-center bg-neutral-900 border border-neutral-700/80 rounded-lg px-2.5 py-1 text-xs text-neutral-200">
+        <svg class="w-3.5 h-3.5 mr-1.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        <span class="font-medium text-white">India / Maharashtra</span>
+        <svg class="w-3 h-3 ml-2 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+
+      <!-- Language selector -->
+      <div class="flex items-center bg-neutral-900 border border-neutral-700/80 rounded-lg p-0.5 text-[11px] font-mono">
+        <button class="bg-neutral-800 text-white px-2 py-0.5 rounded font-medium">EN</button>
+        <button class="text-neutral-400 hover:text-neutral-200 px-2 py-0.5">मराठी</button>
+        <button class="text-neutral-400 hover:text-neutral-200 px-2 py-0.5">हिंदी</button>
+      </div>
+
+      <!-- Prototype watermark -->
+      <div class="bg-neutral-900 border border-neutral-700 text-neutral-400 text-[10px] uppercase font-mono px-2.5 py-1 rounded-md tracking-wider">
+        PROTOTYPE DATA
+      </div>
+
+      <!-- Notification bell -->
+      <button class="w-8 h-8 rounded-lg bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white relative">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <span class="w-2 h-2 rounded-full bg-brand-red absolute top-1.5 right-1.5"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- WORKSPACE BODY (SIDEBAR + MAIN CANVAS + RIGHT PANEL) -->
+  <div class="flex flex-1 overflow-hidden relative">
+
+    <!-- LEFT COMPACT SIDEBAR -->
+    <aside class="w-56 bg-[#0A0A0A] text-neutral-400 flex flex-col justify-between shrink-0 border-r border-neutral-800 z-30">
+      <div class="py-3 px-2 space-y-1">
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Command Center
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Anomalies <span class="ml-auto text-[10px] font-mono bg-neutral-800 text-neutral-300 px-1.5 py-0.2 rounded">3</span>
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Time Machine
+        </a>
+
+        <!-- ACTIVE: IMPACT ZONES -->
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-900 text-white border-l-2 border-brand-blue transition-colors">
+          <svg class="w-4 h-4 text-brand-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
+          Impact Zones
+          <span class="ml-auto w-1.5 h-1.5 rounded-full bg-brand-blue"></span>
+        </a>
+
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4 text-brand-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+          Explainer
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4 text-brand-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          Citizen AI
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+          Alerts
+        </a>
+        <a href="#" class="flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-neutral-400 hover:text-white hover:bg-neutral-900 transition-colors">
+          <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Data & Validation
+        </a>
+      </div>
+
+      <!-- Tagline & Hackathon footer -->
+      <div class="p-3 mx-2 mb-3 bg-neutral-900/60 rounded-xl border border-neutral-800/80 text-[11px] leading-relaxed">
+        <div class="text-neutral-400 font-medium mb-1 flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-violet"></span>AI Pipeline
+        </div>
+        <p class="text-neutral-400 text-[10px] leading-normal">
+          "We don't just predict weather. We transform complex forecasts into localized, explainable weather intelligence."
+        </p>
+      </div>
+    </aside>
+
+    <!-- CENTER AREA: MAP & COMPARISON CANVAS (approx 68% width) -->
+    <main class="flex-1 flex flex-col relative overflow-hidden bg-white">
+      
+      <!-- SUB-HEADER / CONTROLS STRIP -->
+      <div class="h-12 bg-white border-b border-brand-border px-5 flex items-center justify-between z-20 shrink-0">
+        <!-- Breadcrumb & Mode -->
+        <div class="flex items-center gap-3">
+          <span class="text-xs font-semibold text-brand-black tracking-tight flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-blue"></span>
+            Impact Zones Analysis
+          </span>
+          <span class="text-neutral-300">/</span>
+          <span class="text-xs font-mono text-brand-muted">WG-001 (Extreme Rainfall Focus - Pune & Western Ghats)</span>
+        </div>
+
+        <!-- Center Toggle: Deterministic vs Probability of Exceedance -->
+        <div class="flex items-center bg-[#F4F4F5] p-1 rounded-xl border border-brand-border">
+          <button id="btnDeterministic" onclick="setMode('deterministic')" class="px-3.5 py-1 text-xs font-medium rounded-lg text-brand-muted hover:text-brand-black transition-all">
+            Deterministic
+          </button>
+          <button id="btnProbability" onclick="setMode('probability')" class="px-3.5 py-1 text-xs font-semibold rounded-lg bg-brand-blue text-white shadow-sm transition-all flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping"></span>
+            Probability of exceedance
+          </button>
+        </div>
+
+        <!-- Meta Indicators -->
+        <div class="flex items-center gap-3 text-xs">
+          <div class="flex items-center gap-1.5 text-brand-muted font-mono text-[11px]">
+            <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            T+24h Valid: <span class="font-medium text-brand-black">28 Oct, 18:00 IST</span>
+          </div>
+          <button class="bg-[#0A0A0A] hover:bg-neutral-800 text-white text-[11px] font-medium px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition-colors">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Export NetCDF / GeoJSON
+          </button>
+        </div>
+      </div>
+
+      <!-- MAP CONTAINER WITH SWIPE SLIDER -->
+      <div id="mapViewport" class="flex-1 relative overflow-hidden bg-[#EEF2F6]">
+
+        <!-- CARTODB POSITRON STYLE BASEMAP LAYER (SVG SIMULATION OF MAHARASHTRA & WESTERN GHATS) -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <svg class="w-full h-full object-cover" viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="1000" height="680" fill="#F4F5F7"/>
+            <!-- Coastline water body (Arabian sea on left) -->
+            <path d="M0 0H210C215 90 225 180 235 270C240 330 220 400 215 480C210 540 225 610 230 680H0V0Z" fill="#E8EEF5"/>
+            <!-- Subtle coastal contour stroke -->
+            <path d="M210 0C215 90 225 180 235 270C240 330 220 400 215 480C210 540 225 610 230 680" stroke="#CBD5E1" stroke-width="1.5" fill="none"/>
+            
+            <!-- Maharashtra regional boundaries & land features -->
+            <path d="M235 270C270 250 340 240 420 220C520 200 640 180 750 200C850 220 920 250 1000 260V680H230C225 610 210 540 215 480C220 400 240 330 235 270Z" fill="#F9FAFB"/>
+            
+            <!-- Western Ghats ridgeline elevation shading (pale neutral) -->
+            <path d="M250 160C260 260 270 380 255 490C250 560 260 620 265 680C280 680 285 580 280 480C295 380 285 240 270 160H250Z" fill="#EDEFEA" opacity="0.8"/>
+            <path d="M260 200C266 280 273 370 262 460" stroke="#D1D5DB" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <!-- State border line -->
+            <path d="M225 140C310 135 440 120 570 100C700 80 830 110 980 90" stroke="#D4D4D8" stroke-width="1.5" stroke-dasharray="4 4"/>
+            <path d="M570 100C620 240 680 380 720 540C740 610 760 680 760 680" stroke="#E4E4E7" stroke-width="1" stroke-dasharray="3 3"/>
+
+            <!-- Major river traces -->
+            <path d="M270 350C330 360 410 390 490 410C580 430 680 440 780 470" stroke="#D9E2EC" stroke-width="1.2"/>
+            <path d="M280 280C360 290 450 310 540 315C650 320 740 340 850 335" stroke="#D9E2EC" stroke-width="1.2"/>
+
+            <!-- Road / corridor network (pale grey CartoDB Positron style) -->
+            <path d="M232 290L370 380L510 420L680 460" stroke="#E5E7EB" stroke-width="1.2"/>
+            <path d="M370 380L430 250L490 140" stroke="#E5E7EB" stroke-width="1"/>
+            <path d="M370 380L330 520L310 640" stroke="#E5E7EB" stroke-width="1"/>
+
+            <!-- City Anchor Points & Labels -->
+            <!-- Mumbai -->
+            <circle cx="232" cy="290" r="3.5" fill="#0A0A0A"/>
+            <circle cx="232" cy="290" r="6.5" stroke="#0A0A0A" stroke-width="1" fill="none" opacity="0.3"/>
+            <text x="222" y="282" font-family="Inter" font-size="11" font-weight="600" fill="#0A0A0A" text-anchor="end">Mumbai</text>
+
+            <!-- Pune (Epicenter of WG-001) -->
+            <circle cx="370" cy="380" r="4.5" fill="#2563EB"/>
+            <circle cx="370" cy="380" r="9" stroke="#2563EB" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <text x="382" y="384" font-family="Inter" font-size="12" font-weight="700" fill="#0A0A0A">Pune</text>
+            <text x="382" y="396" font-family="JetBrains Mono" font-size="9" fill="#71717A">18.52° N, 73.85° E</text>
+
+            <!-- Nashik -->
+            <circle cx="350" cy="210" r="3" fill="#52525B"/>
+            <text x="360" y="214" font-family="Inter" font-size="10" font-weight="500" fill="#52525B">Nashik</text>
+
+            <!-- Satara / Mahabaleshwar -->
+            <circle cx="330" cy="460" r="3" fill="#52525B"/>
+            <text x="340" y="464" font-family="Inter" font-size="10" font-weight="500" fill="#52525B">Satara (Ghats)</text>
+
+            <!-- Solapur -->
+            <circle cx="580" cy="450" r="3" fill="#71717A"/>
+            <text x="590" y="454" font-family="Inter" font-size="10" font-weight="500" fill="#71717A">Solapur</text>
+
+            <!-- Chhatrapati Sambhajinagar -->
+            <circle cx="480" cy="230" r="3" fill="#71717A"/>
+            <text x="490" y="234" font-family="Inter" font-size="10" font-weight="500" fill="#71717A">Chh. Sambhajinagar</text>
+
+            <!-- Kolhapur -->
+            <circle cx="320" cy="560" r="3" fill="#52525B"/>
+            <text x="330" y="564" font-family="Inter" font-size="10" font-weight="500" fill="#52525B">Kolhapur</text>
+          </svg>
+        </div>
+
+        <!-- LEFT SIDE: 12 KM NWP GRID OVERLAY (CLIPPED TO DIVIDER) -->
+        <div id="leftLayer" class="absolute inset-y-0 left-0 overflow-hidden z-10 pointer-events-none" style="width: 50%;">
+          <div class="absolute inset-0 w-[1400px] h-[900px]">
+            <!-- 12 km Coarse Blocky Grid Cells overlay -->
+            <svg class="w-full h-full" viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="nwp12kmGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+                  <rect width="60" height="60" fill="none" stroke="#A1A1AA" stroke-width="0.75" stroke-dasharray="2 2" opacity="0.6"/>
+                </pattern>
+              </defs>
+              <rect x="180" y="100" width="600" height="540" fill="url(#nwp12kmGrid)"/>
+
+              <!-- Coarse blocky precipitation cells (~12km resolution = large 60px x 60px blocks) -->
+              <!-- Moderate block 1 (Yellow) -->
+              <rect x="240" y="300" width="60" height="60" fill="#FACC15" fill-opacity="0.38" stroke="#FACC15" stroke-width="1.5"/>
+              <text x="270" y="335" font-family="JetBrains Mono" font-size="9" fill="#854D0E" font-weight="600" text-anchor="middle">54 mm</text>
+
+              <!-- Severe block 2 (Orange) -->
+              <rect x="300" y="300" width="60" height="60" fill="#F97316" fill-opacity="0.45" stroke="#F97316" stroke-width="1.5"/>
+              <text x="330" y="335" font-family="JetBrains Mono" font-size="9" fill="#9A3412" font-weight="600" text-anchor="middle">98 mm</text>
+
+              <!-- Extreme block 3 covering Pune metro (Red) -->
+              <rect x="360" y="300" width="60" height="60" fill="#DC2626" fill-opacity="0.55" stroke="#DC2626" stroke-width="2"/>
+              <text x="390" y="335" font-family="JetBrains Mono" font-size="9" fill="#7F1D1D" font-weight="700" text-anchor="middle">165 mm</text>
+
+              <!-- Ghats High-Orographic Block 4 (Red) -->
+              <rect x="300" y="360" width="60" height="60" fill="#DC2626" fill-opacity="0.5" stroke="#DC2626" stroke-width="2"/>
+              <text x="330" y="395" font-family="JetBrains Mono" font-size="9" fill="#7F1D1D" font-weight="700" text-anchor="middle">180 mm</text>
+
+              <!-- Central Pune Block (Orange) -->
+              <rect x="360" y="360" width="60" height="60" fill="#F97316" fill-opacity="0.45" stroke="#F97316" stroke-width="1.5"/>
+              <text x="390" y="395" font-family="JetBrains Mono" font-size="9" fill="#9A3412" font-weight="600" text-anchor="middle">112 mm</text>
+
+              <!-- Eastern low-impact block (Yellow) -->
+              <rect x="420" y="360" width="60" height="60" fill="#FACC15" fill-opacity="0.32" stroke="#FACC15" stroke-width="1.5"/>
+              <text x="450" y="395" font-family="JetBrains Mono" font-size="9" fill="#854D0E" font-weight="600" text-anchor="middle">48 mm</text>
+
+              <!-- Southern Ghats Block (Orange) -->
+              <rect x="300" y="420" width="60" height="60" fill="#F97316" fill-opacity="0.45" stroke="#F97316" stroke-width="1.5"/>
+              <text x="330" y="455" font-family="JetBrains Mono" font-size="9" fill="#9A3412" font-weight="600" text-anchor="middle">104 mm</text>
+
+              <rect x="360" y="420" width="60" height="60" fill="#FACC15" fill-opacity="0.35" stroke="#FACC15" stroke-width="1.5"/>
+              <text x="390" y="455" font-family="JetBrains Mono" font-size="9" fill="#854D0E" font-weight="600" text-anchor="middle">62 mm</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: ~5 KM AI DOWNSCALED FIELD (FULL UNDERNEATH, MASKED OR SPLIT BY DIVIDER) -->
+        <div id="rightLayer" class="absolute inset-0 z-0">
+          <svg class="w-full h-full" viewBox="0 0 1000 680" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="downscale5kmGrid" width="25" height="25" patternUnits="userSpaceOnUse">
+                <rect width="25" height="25" fill="none" stroke="#71717A" stroke-width="0.4" opacity="0.35"/>
+              </pattern>
+            </defs>
+            <rect x="180" y="100" width="600" height="540" fill="url(#downscale5kmGrid)"/>
+
+            <!-- High-resolution AI-downscaled cells (~5km = 25px x 25px grid units with orographic curvature) -->
+            <!-- Group of 5km cells - Interactive clickable elements -->
+            <!-- Cluster A: Lavasa / Lonavala Ghat crest (Extreme localized peaks) -->
+            <g class="cursor-pointer transition-opacity hover:opacity-90" onclick="showCellModal('CELL-5K-0842', '18.75° N, 73.40° E', '0.94', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '96.2%', 'Lonavala / Khandala Ghat Crest', '215 mm')">
+              <rect x="290" y="325" width="25" height="25" fill="#DC2626" fill-opacity="0.75" stroke="#DC2626" stroke-width="1.5"/>
+              <circle cx="302.5" cy="337.5" r="3" fill="#FFFFFF"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0843', '18.75° N, 73.55° E', '0.91', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '94.8%', 'Kamshet Windward Pass', '198 mm')">
+              <rect x="315" y="325" width="25" height="25" fill="#DC2626" fill-opacity="0.65" stroke="#DC2626" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0844', '18.75° N, 73.70° E', '0.86', 'HIGH RISK (ORANGE)', 'T+24h (28 Oct 18:00)', '91.2%', 'Talegaon Industrial Belt', '145 mm')">
+              <rect x="340" y="325" width="25" height="25" fill="#F97316" fill-opacity="0.65" stroke="#F97316" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0845', '18.75° N, 73.85° E', '0.74', 'MODERATE RISK (YELLOW)', 'T+24h (28 Oct 18:00)', '88.5%', 'Pimpri-Chinchwad North', '88 mm')">
+              <rect x="365" y="325" width="25" height="25" fill="#FACC15" fill-opacity="0.55" stroke="#FACC15" stroke-width="1"/>
+            </g>
+
+            <!-- Row B: Core Urban Pune & Khadakwasla Basin (High Impact) -->
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0912', '18.50° N, 73.45° E', '0.96', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '97.4%', 'Mulshi Dam Catchment', '240 mm')">
+              <rect x="290" y="350" width="25" height="25" fill="#DC2626" fill-opacity="0.8" stroke="#FFFFFF" stroke-width="1.5"/>
+              <circle cx="302.5" cy="362.5" r="3.5" fill="#FFFFFF"/>
+            </g>
+            <!-- Highlighted Selected Cell (CELL-5K-0914: Shivajinagar / Mutha basin) -->
+            <g id="selectedCellG" class="cursor-pointer" onclick="showCellModal('CELL-5K-0914', '18.52° N, 73.85° E', '0.89', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '94.1%', 'Pune Central (Shivajinagar/Mutha)', '182 mm')">
+              <rect x="365" y="350" width="25" height="25" fill="#DC2626" fill-opacity="0.75" stroke="#2563EB" stroke-width="2.5"/>
+              <!-- Marker pulse -->
+              <circle cx="377.5" cy="362.5" r="5" fill="#2563EB" stroke="#FFFFFF" stroke-width="1.5"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0913', '18.50° N, 73.70° E', '0.88', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '93.5%', 'Kothrud / Bavdhan Valley', '168 mm')">
+              <rect x="340" y="350" width="25" height="25" fill="#DC2626" fill-opacity="0.65" stroke="#DC2626" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0915', '18.52° N, 74.00° E', '0.62', 'MODERATE (ORANGE)', 'T+24h (28 Oct 18:00)', '85.2%', 'Hadapsar / Magarpatta', '95 mm')">
+              <rect x="390" y="350" width="25" height="25" fill="#F97316" fill-opacity="0.5" stroke="#F97316" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0916', '18.52° N, 74.15° E', '0.38', 'LOW RISK (YELLOW)', 'T+24h (28 Oct 18:00)', '79.0%', 'Uruli Kanchan Plains', '42 mm')">
+              <rect x="415" y="350" width="25" height="25" fill="#FACC15" fill-opacity="0.4" stroke="#FACC15" stroke-width="1"/>
+            </g>
+
+            <!-- Row C: Sinhagad & Panshet Foothills -->
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0982', '18.35° N, 73.65° E', '0.92', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '95.0%', 'Sinhagad Ridge Escarpment', '205 mm')">
+              <rect x="315" y="375" width="25" height="25" fill="#DC2626" fill-opacity="0.75" stroke="#DC2626" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0983', '18.35° N, 73.80° E', '0.84', 'HIGH RISK (ORANGE)', 'T+24h (28 Oct 18:00)', '90.4%', 'Dhayari / Ambegaon Outskirts', '140 mm')">
+              <rect x="340" y="375" width="25" height="25" fill="#F97316" fill-opacity="0.65" stroke="#F97316" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0984', '18.35° N, 73.95° E', '0.71', 'MODERATE (ORANGE)', 'T+24h (28 Oct 18:00)', '86.7%', 'Saswad Ghat Approaches', '110 mm')">
+              <rect x="365" y="375" width="25" height="25" fill="#F97316" fill-opacity="0.5" stroke="#F97316" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-0985', '18.35° N, 74.10° E', '0.29', 'LOW (YELLOW)', 'T+24h (28 Oct 18:00)', '72.3%', 'Purandar Leeward Shadow', '35 mm')">
+              <rect x="390" y="375" width="25" height="25" fill="#FACC15" fill-opacity="0.35" stroke="#FACC15" stroke-width="1"/>
+            </g>
+
+            <!-- Row D: Bhor & Mahabaleshwar North -->
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-1045', '18.15° N, 73.55° E', '0.95', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '96.8%', 'Bhor Valley Watershed', '228 mm')">
+              <rect x="315" y="400" width="25" height="25" fill="#DC2626" fill-opacity="0.8" stroke="#DC2626" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-1046', '18.15° N, 73.70° E', '0.78', 'MODERATE (ORANGE)', 'T+24h (28 Oct 18:00)', '89.1%', 'Shirwal Plain Corridor', '124 mm')">
+              <rect x="340" y="400" width="25" height="25" fill="#F97316" fill-opacity="0.55" stroke="#F97316" stroke-width="1"/>
+            </g>
+            <g class="cursor-pointer" onclick="showCellModal('CELL-5K-1047', '18.15° N, 73.85° E', '0.45', 'LOW (YELLOW)', 'T+24h (28 Oct 18:00)', '81.0%', 'Lonand Agri Sector', '58 mm')">
+              <rect x="365" y="400" width="25" height="25" fill="#FACC15" fill-opacity="0.4" stroke="#FACC15" stroke-width="1"/>
+            </g>
+
+            <!-- Smooth isohyetal contour vector lines generated by downscaling model (diffusion overlay) -->
+            <path d="M285 320C320 310 390 320 420 345C440 365 420 395 380 410C330 425 300 410 290 370Z" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="4 2" fill="none" opacity="0.6"/>
+            <path d="M300 335C330 330 380 335 395 355C405 375 380 395 345 395C320 395 305 375 300 350Z" stroke="#DC2626" stroke-width="1.8" fill="none" opacity="0.8"/>
+          </svg>
+        </div>
+
+        <!-- FLOATING PILL LABELS ON TOP OF MAP VIEWPORT -->
+        <!-- Left Pill (12 km NWP) -->
+        <div class="absolute top-4 left-4 z-20 pointer-events-none">
+          <div class="bg-[#0A0A0A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg border border-neutral-700 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-neutral-400"></span>
+            12 km NWP (Coarse Ensemble)
+          </div>
+        </div>
+
+        <!-- Right Pill (~5 km AI downscaled) -->
+        <div class="absolute top-4 right-4 z-20 pointer-events-none">
+          <div class="bg-[#0A0A0A] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg border border-neutral-700 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+            ~5 km AI downscaled
+            <span class="bg-brand-violet text-white text-[10px] font-mono px-1.5 py-0.2 rounded-full font-normal">diffusion prototype</span>
+          </div>
+        </div>
+
+        <!-- DRAGGABLE SWIPE DIVIDER -->
+        <div id="swipeDivider" class="absolute inset-y-0 z-30 cursor-ew-resize flex items-center justify-center pointer-events-auto" style="left: 50%; transform: translateX(-50%);">
+          <!-- Vertical Line -->
+          <div class="w-[2px] h-full bg-[#0A0A0A] shadow-[0_0_12px_rgba(0,0,0,0.4)] relative"></div>
+          <!-- Handle Button -->
+          <div class="absolute w-8 h-8 rounded-full bg-[#0A0A0A] text-white border-2 border-white shadow-xl flex items-center justify-center -ml-[1px]">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l-4 3 4 3m8-6l4 3-4 3"/>
+            </svg>
+          </div>
+          <!-- Helper tooltips on hover -->
+          <div class="absolute bottom-16 bg-[#0A0A0A]/90 text-[10px] text-white font-mono px-2 py-1 rounded border border-neutral-700 whitespace-nowrap shadow-md pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+            Drag to compare resolutions
+          </div>
+        </div>
+
+        <!-- CELL DETAIL POPOVER / MODAL (Clicking any cell opens or updates this) -->
+        <div id="cellPopover" class="absolute bottom-20 left-1/2 -translate-x-1/2 z-40 bg-white border border-brand-border rounded-2xl shadow-2xl p-4 w-[380px] transition-all duration-200">
+          <div class="flex items-start justify-between pb-3 border-b border-brand-border">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-lg bg-brand-red/10 text-brand-red border border-brand-red/20 flex items-center justify-center font-mono font-bold text-xs">
+                5k
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 id="popoverCellId" class="text-xs font-bold font-mono text-brand-black">CELL-5K-0914</h4>
+                  <span id="popoverRiskBadge" class="bg-brand-red text-white text-[10px] font-semibold px-2 py-0.5 rounded-full">HIGH RISK</span>
+                </div>
+                <p id="popoverLocation" class="text-[11px] text-brand-muted font-medium">Pune Central (Shivajinagar/Mutha basin)</p>
+              </div>
+            </div>
+            <button onclick="hideCellModal()" class="text-neutral-400 hover:text-brand-black p-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
+          </div>
+
+          <!-- Popover Grid Metrics -->
+          <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+            <div class="bg-brand-surface p-2.5 rounded-xl border border-brand-border">
+              <span class="text-[10px] text-brand-muted uppercase font-mono tracking-wider block mb-0.5">Exceedance Prob.</span>
+              <div class="flex items-baseline gap-1.5">
+                <span id="popoverProb" class="text-lg font-bold font-mono text-brand-red">0.89</span>
+                <span class="text-[10px] text-neutral-500 font-mono">(threshold >100mm)</span>
+              </div>
+            </div>
+            <div class="bg-brand-surface p-2.5 rounded-xl border border-brand-border">
+              <span class="text-[10px] text-brand-muted uppercase font-mono tracking-wider block mb-0.5">Est. Peak Accum.</span>
+              <div class="flex items-baseline gap-1.5">
+                <span id="popoverAccum" class="text-lg font-bold font-mono text-brand-black">182 mm</span>
+                <span class="text-[10px] text-brand-muted font-mono">/ 24h</span>
+              </div>
+            </div>
+            <div class="bg-brand-surface p-2.5 rounded-xl border border-brand-border">
+              <span class="text-[10px] text-brand-muted uppercase font-mono tracking-wider block mb-0.5">Coordinates</span>
+              <span id="popoverCoords" class="font-mono text-xs font-medium text-brand-black">18.52° N, 73.85° E</span>
+            </div>
+            <div class="bg-brand-surface p-2.5 rounded-xl border border-brand-border">
+              <span class="text-[10px] text-brand-muted uppercase font-mono tracking-wider block mb-0.5">Model Confidence</span>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+                <span id="popoverConfidence" class="font-mono text-xs font-semibold text-brand-black">94.1%</span>
+                <span class="text-[9px] text-brand-muted">(GNN-verified)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action strip -->
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-[10px] text-neutral-400 font-mono">Prototype / Sample data only</span>
+            <button class="bg-[#0A0A0A] hover:bg-neutral-800 text-white text-[11px] font-medium px-3 py-1 rounded-lg flex items-center gap-1.5">
+              <span>Generate CAP Alert</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- BOTTOM-LEFT: SEVERITY SCALE & GRID SCALE LEGEND -->
+        <div class="absolute bottom-4 left-4 z-20 bg-white/95 backdrop-blur-sm border border-brand-border rounded-xl p-3 shadow-lg flex flex-col gap-2.5 max-w-[280px]">
+          <!-- Severity Gradient -->
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-semibold uppercase tracking-wider text-brand-muted mb-1">
+              <span>Weather Severity Scale</span>
+              <span class="font-mono text-[9px]">P(Rain > 100mm)</span>
+            </div>
+            <div class="h-2 w-full rounded-full flex overflow-hidden border border-neutral-300">
+              <div class="flex-1 bg-brand-yellow" title="Low / Moderate (0.2 - 0.5)"></div>
+              <div class="flex-1 bg-brand-orange" title="Severe (0.5 - 0.8)"></div>
+              <div class="flex-1 bg-brand-red" title="Extreme (0.8 - 1.0)"></div>
+            </div>
+            <div class="flex justify-between text-[9px] font-mono text-neutral-500 mt-1">
+              <span>Moderate (0.2)</span>
+              <span>Severe (0.6)</span>
+              <span>Extreme (0.9+)</span>
+            </div>
+          </div>
+
+          <div class="h-px bg-brand-border"></div>
+
+          <!-- Grid Scale Comparison Indicator -->
+          <div class="flex items-center justify-between text-[11px]">
+            <div class="flex items-center gap-2">
+              <div class="w-4 h-4 border border-dashed border-neutral-600 bg-neutral-100 flex items-center justify-center text-[8px] font-mono text-neutral-700">
+                12k
+              </div>
+              <span class="text-neutral-600 text-[10px]">Coarse (12 km)</span>
+            </div>
+            <span class="text-neutral-300 font-mono">→</span>
+            <div class="flex items-center gap-2">
+              <div class="w-3.5 h-3.5 border border-brand-violet bg-brand-violet/10 flex items-center justify-center text-[7px] font-mono font-bold text-brand-violet">
+                5k
+              </div>
+              <span class="text-brand-violet font-semibold text-[10px]">High-Res (~5 km)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM-RIGHT: MAP ATTRIBUTION -->
+        <div class="absolute bottom-2 right-4 z-20 text-[10px] font-mono text-neutral-400 bg-white/80 px-2 py-0.5 rounded border border-neutral-200">
+          CartoDB Positron Style • Survey of India Bounds • Prototype Data
+        </div>
+      </div>
+    </main>
+
+    <!-- RIGHT SIDE PANEL: HIGHEST-IMPACT 5 KM CELLS (approx 32% width) -->
+    <aside class="w-96 bg-white border-l border-brand-border flex flex-col z-30 shrink-0">
+      
+      <!-- Panel Header -->
+      <div class="p-4 border-b border-brand-border">
+        <div class="flex items-center justify-between mb-1">
+          <h2 class="text-sm font-bold text-brand-black flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+            Highest-impact 5 km cells
+          </h2>
+          <span class="text-[10px] font-mono bg-neutral-100 text-neutral-600 px-2 py-0.5 rounded-full border border-neutral-200">
+            18 Critical Nodes
+          </span>
+        </div>
+        <p class="text-xs text-brand-muted leading-tight">
+          Downscaled from ECMWF-IFS 12 km grid via spatial super-resolution diffusion model.
+        </p>
+      </div>
+
+      <!-- Filter / Sort Bar -->
+      <div class="px-4 py-2 bg-brand-surface border-b border-brand-border flex items-center justify-between text-xs">
+        <span class="text-[11px] font-medium text-brand-muted">Sorted by: <span class="text-brand-black font-semibold">Exceedance Probability (High→Low)</span></span>
+        <button class="text-brand-blue font-medium hover:underline text-[11px] flex items-center gap-1">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12"/></svg>
+          Filter
+        </button>
+      </div>
+
+      <!-- Ranked Cell List -->
+      <div class="flex-1 overflow-y-auto p-3 space-y-2.5">
+
+        <!-- Cell Item 1 (Highest Impact - Mulshi) -->
+        <div onclick="showCellModal('CELL-5K-0912', '18.50° N, 73.45° E', '0.96', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '97.4%', 'Mulshi Dam Catchment', '240 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-red hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-black text-white text-[10px] font-mono font-bold flex items-center justify-center">1</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-red transition-colors">CELL-5K-0912</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Mulshi Catchment / Ghat Edge</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.96
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.50° N, 73.45° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 240 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 2 (Bhor Valley) -->
+        <div onclick="showCellModal('CELL-5K-1045', '18.15° N, 73.55° E', '0.95', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '96.8%', 'Bhor Valley Watershed', '228 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-red hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-black text-white text-[10px] font-mono font-bold flex items-center justify-center">2</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-red transition-colors">CELL-5K-1045</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Bhor Valley Watershed</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.95
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.15° N, 73.55° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 228 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 3 (Lonavala Pass) -->
+        <div onclick="showCellModal('CELL-5K-0842', '18.75° N, 73.40° E', '0.94', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '96.2%', 'Lonavala / Khandala Ghat Crest', '215 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-red hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-black text-white text-[10px] font-mono font-bold flex items-center justify-center">3</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-red transition-colors">CELL-5K-0842</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Lonavala / Khandala Crest</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.94
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.75° N, 73.40° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 215 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 4: ACTIVE / SELECTED (Pune Central Shivajinagar) -->
+        <div onclick="showCellModal('CELL-5K-0914', '18.52° N, 73.85° E', '0.89', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '94.1%', 'Pune Central (Shivajinagar/Mutha)', '182 mm')"
+             class="group p-3 rounded-xl border-2 border-brand-blue bg-blue-50/40 shadow-sm cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-blue text-white text-[10px] font-mono font-bold flex items-center justify-center">4</span>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-mono text-xs font-bold text-brand-blue">CELL-5K-0914</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-brand-blue animate-ping"></span>
+                </div>
+                <span class="text-[11px] text-brand-black block font-semibold">Pune Metro / Shivajinagar</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.89
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-blue-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-600 font-medium">18.52° N, 73.85° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-bold">
+              <span class="text-[10px] text-neutral-500 font-sans font-normal">Accum:</span> 182 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 5 (Kothrud / Bavdhan) -->
+        <div onclick="showCellModal('CELL-5K-0913', '18.50° N, 73.70° E', '0.88', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '93.5%', 'Kothrud / Bavdhan Valley', '168 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-red hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-black text-white text-[10px] font-mono font-bold flex items-center justify-center">5</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-red transition-colors">CELL-5K-0913</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Kothrud / Bavdhan Valley</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.88
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.50° N, 73.70° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 168 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 6 (Talegaon - Orange) -->
+        <div onclick="showCellModal('CELL-5K-0844', '18.75° N, 73.70° E', '0.86', 'HIGH RISK (ORANGE)', 'T+24h (28 Oct 18:00)', '91.2%', 'Talegaon Industrial Belt', '145 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-orange hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-neutral-800 text-white text-[10px] font-mono font-bold flex items-center justify-center">6</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-orange transition-colors">CELL-5K-0844</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Talegaon Industrial Belt</span>
+              </div>
+            </div>
+            <span class="bg-brand-orange text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.86
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.75° N, 73.70° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 145 mm
+            </div>
+          </div>
+        </div>
+
+        <!-- Cell Item 7 (Sinhagad) -->
+        <div onclick="showCellModal('CELL-5K-0982', '18.35° N, 73.65° E', '0.92', 'HIGH RISK (RED)', 'T+24h (28 Oct 18:00)', '95.0%', 'Sinhagad Ridge Escarpment', '205 mm')"
+             class="group p-3 rounded-xl border border-brand-border hover:border-brand-red hover:shadow-sm bg-white hover:bg-neutral-50 cursor-pointer transition-all">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-brand-black text-white text-[10px] font-mono font-bold flex items-center justify-center">7</span>
+              <div>
+                <span class="font-mono text-xs font-bold text-brand-black group-hover:text-brand-red transition-colors">CELL-5K-0982</span>
+                <span class="text-[11px] text-brand-muted block font-medium">Sinhagad Ridge Escarpment</span>
+              </div>
+            </div>
+            <span class="bg-brand-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+              P = 0.92
+            </span>
+          </div>
+
+          <div class="mt-2.5 pt-2 border-t border-dashed border-neutral-200 flex items-center justify-between text-[11px]">
+            <div class="font-mono text-neutral-500">18.35° N, 73.65° E</div>
+            <div class="flex items-center gap-1.5 font-mono text-brand-black font-semibold">
+              <span class="text-[10px] text-neutral-400 font-sans font-normal">Accum:</span> 205 mm
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Footer: CAP Broadcast Preview & Download -->
+      <div class="p-4 border-t border-brand-border bg-brand-surface space-y-2.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-semibold text-brand-black">Disaster Management Action</span>
+          <span class="text-brand-green font-mono text-[10px] font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>NDMA Compliant
+          </span>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 bg-[#0A0A0A] hover:bg-neutral-800 text-white text-xs font-semibold py-2 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition-colors">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"/></svg>
+            Broadcast Red Alert
+          </button>
+          <button class="bg-white hover:bg-neutral-100 text-brand-black border border-brand-border text-xs font-semibold py-2 px-3 rounded-xl flex items-center justify-center transition-colors" title="Export CSV list">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          </button>
+        </div>
+        <p class="text-[10px] text-neutral-400 text-center font-mono">
+          Prototype / Sample data • Not for operational deployment
+        </p>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- FLOATING CITIZEN AI TRIGGER BUTTON -->
+  <button class="fixed bottom-5 right-5 z-50 bg-[#0A0A0A] hover:bg-neutral-800 text-white rounded-full px-4 py-2.5 shadow-2xl flex items-center gap-2.5 border border-neutral-700 transition-all hover:scale-105">
+    <span class="w-2.5 h-2.5 rounded-full bg-brand-violet"></span>
+    <span class="text-xs font-medium tracking-tight">Citizen AI Assistant</span>
+    <span class="bg-brand-violet/30 text-brand-violet text-[10px] font-mono px-1.5 py-0.5 rounded font-bold">Ask</span>
+  </button>
+
+  <!-- JAVASCRIPT FOR INTERACTIVE SWIPE SLIDER & CELL MODAL -->
+  <script>
+    // Drag slider functionality
+    const viewport = document.getElementById('mapViewport');
+    const divider = document.getElementById('swipeDivider');
+    const leftLayer = document.getElementById('leftLayer');
+    let isDragging = false;
+
+    function updateSlider(clientX) {
+      const rect = viewport.getBoundingClientRect();
+      let pos = (clientX - rect.left) / rect.width;
+      if (pos < 0.05) pos = 0.05;
+      if (pos > 0.95) pos = 0.95;
+      const pct = (pos * 100).toFixed(1) + '%';
+      divider.style.left = pct;
+      leftLayer.style.width = pct;
+    }
+
+    divider.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      e.preventDefault();
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      updateSlider(e.clientX);
+    });
+
+    window.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Touch support for swipe divider
+    divider.addEventListener('touchstart', (e) => {
+      isDragging = true;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+      if (!isDragging || !e.touches[0]) return;
+      updateSlider(e.touches[0].clientX);
+    });
+
+    window.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+
+    // Popover Modal interactions
+    function showCellModal(id, coords, prob, risk, time, conf, loc, accum) {
+      document.getElementById('cellPopover').classList.remove('hidden');
+      document.getElementById('popoverCellId').innerText = id;
+      document.getElementById('popoverCoords').innerText = coords;
+      document.getElementById('popoverProb').innerText = prob;
+      document.getElementById('popoverRiskBadge').innerText = risk;
+      document.getElementById('popoverConfidence').innerText = conf;
+      document.getElementById('popoverLocation').innerText = loc;
+      document.getElementById('popoverAccum').innerText = accum;
+      
+      if (risk.includes('ORANGE')) {
+        document.getElementById('popoverRiskBadge').className = 'bg-brand-orange text-white text-[10px] font-semibold px-2 py-0.5 rounded-full';
+        document.getElementById('popoverProb').className = 'text-lg font-bold font-mono text-brand-orange';
+      } else if (risk.includes('YELLOW')) {
+        document.getElementById('popoverRiskBadge').className = 'bg-brand-yellow text-brand-black text-[10px] font-semibold px-2 py-0.5 rounded-full';
+        document.getElementById('popoverProb').className = 'text-lg font-bold font-mono text-brand-yellow';
+      } else {
+        document.getElementById('popoverRiskBadge').className = 'bg-brand-red text-white text-[10px] font-semibold px-2 py-0.5 rounded-full';
+        document.getElementById('popoverProb').className = 'text-lg font-bold font-mono text-brand-red';
+      }
+    }
+
+    function hideCellModal() {
+      document.getElementById('cellPopover').classList.add('hidden');
+    }
+
+    // Toggle deterministic vs probability modes
+    function setMode(mode) {
+      const btnDet = document.getElementById('btnDeterministic');
+      const btnProb = document.getElementById('btnProbability');
+      if (mode === 'deterministic') {
+        btnDet.className = 'px-3.5 py-1 text-xs font-semibold rounded-lg bg-brand-blue text-white shadow-sm transition-all';
+        btnProb.className = 'px-3.5 py-1 text-xs font-medium rounded-lg text-brand-muted hover:text-brand-black transition-all';
+      } else {
+        btnProb.className = 'px-3.5 py-1 text-xs font-semibold rounded-lg bg-brand-blue text-white shadow-sm transition-all flex items-center gap-1.5';
+        btnDet.className = 'px-3.5 py-1 text-xs font-medium rounded-lg text-brand-muted hover:text-brand-black transition-all';
+      }
+    }
+  </script>
+</body>
+</html>

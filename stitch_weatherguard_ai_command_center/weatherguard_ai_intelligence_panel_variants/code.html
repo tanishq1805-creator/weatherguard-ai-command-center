@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeatherGuard AI - Intelligence Panel Variants (Forecaster vs Citizen)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              black: '#0A0A0A',
+              card: '#FFFFFF',
+              canvas: '#FBF8FC',
+              surface: '#F4F4F5',
+              border: '#E4E4E7',
+              text: '#18181B',
+              muted: '#71717A',
+              blue: '#2563EB',
+              violet: '#7C3AED',
+              green: '#10B981',
+              yellow: '#FACC15',
+              orange: '#F97316',
+              red: '#DC2626'
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#F8F9FA] text-brand-text font-sans antialiased min-h-screen p-6 lg:p-10">
+
+  <!-- Header & Context Navigation -->
+  <header class="max-w-[1440px] mx-auto mb-8">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-brand-border">
+      <div class="flex items-center gap-4">
+        <!-- Brand Logo Icon from Design System -->
+        <div class="w-10 h-10 rounded-xl bg-brand-black flex items-center justify-center p-2 shadow-sm">
+          <svg viewBox="0 0 200 200" fill="none" class="w-full h-full">
+            <path d="M100 36L152 56V104C152 136 128 162 100 172C72 162 48 136 48 104V56L100 36Z" stroke="#FFFFFF" stroke-width="12" stroke-linejoin="round"/>
+            <path d="M68 114C78 98 90 98 100 114C110 130 122 130 132 114" stroke="#2563EB" stroke-width="10" stroke-linecap="round"/>
+            <path d="M76 92C84 80 92 80 100 92C108 104 116 104 124 92" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="100" cy="66" r="8" fill="#7C3AED"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl font-bold tracking-tight text-brand-black">WeatherGuard AI</h1>
+            <span class="px-2 py-0.5 rounded text-[11px] font-mono tracking-wider bg-brand-surface text-brand-muted border border-brand-border font-medium">PROTOTYPE / SAMPLE DATA</span>
+          </div>
+          <p class="text-xs text-brand-muted mt-0.5">Command Center Intelligence Panel • Dual-Persona Exploration</p>
+        </div>
+      </div>
+
+      <!-- Mode Toggle & Meta Controls -->
+      <div class="flex items-center gap-3">
+        <span class="text-xs font-medium text-brand-muted hidden sm:inline">Active Viewport:</span>
+        <div class="inline-flex p-1 bg-brand-black rounded-full border border-brand-black shadow-inner">
+          <button class="px-4 py-1.5 rounded-full text-xs font-medium text-white bg-brand-blue shadow-sm transition">
+            Comparison View
+          </button>
+          <button class="px-4 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white transition">
+            Forecaster Only
+          </button>
+          <button class="px-4 py-1.5 rounded-full text-xs font-medium text-zinc-400 hover:text-white transition">
+            Citizen Only
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stepper Context Indicator (Slim Pipeline Stepper) -->
+    <div class="mt-4 flex items-center justify-between text-xs text-brand-muted">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brand-green"></span>
+        <span class="font-mono text-[11px] font-semibold text-brand-text">ANOMALY TARGET: WG-001</span>
+        <span class="text-brand-muted">• Extreme Precipitation Cluster (Pune District)</span>
+      </div>
+      <div class="hidden lg:flex items-center gap-2 font-mono text-[11px]">
+        <span>DETECT</span>
+        <span class="text-zinc-300">→</span>
+        <span>TRACK</span>
+        <span class="text-zinc-300">→</span>
+        <span>DOWNSCALE</span>
+        <span class="text-zinc-300">→</span>
+        <span>VALIDATE</span>
+        <span class="text-zinc-300">→</span>
+        <span class="text-brand-blue font-semibold">LOCALIZE</span>
+        <span class="text-zinc-300">→</span>
+        <span class="text-brand-violet font-semibold">EXPLAIN</span>
+        <span class="text-zinc-300">→</span>
+        <span class="text-brand-red font-semibold">ALERT</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Canvas: Dual Variant Side-by-Side Grid -->
+  <main class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+    <!-- ========================================== -->
+    <!-- VARIANT A: FORECASTER MODE (Dense, Technical) -->
+    <!-- ========================================== -->
+    <section class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 flex flex-col gap-6 relative overflow-hidden">
+      <!-- Variant Label / Header -->
+      <div class="flex items-center justify-between border-b border-brand-border pb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-brand-black flex items-center justify-center text-white">
+            <!-- Terminal/Chart icon -->
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-mono tracking-wider font-semibold text-brand-blue">Variant A</span>
+              <h2 class="text-base font-bold text-brand-black">Forecaster Mode</h2>
+            </div>
+            <p class="text-xs text-brand-muted">Operational Diagnostics & Meteorological Verification</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-zinc-100 text-brand-text border border-brand-border">
+            SRC: ECMWF IFS + GFS
+          </span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-violet-50 text-brand-violet border border-violet-200">
+            PROTOTYPE V1.4
+          </span>
+        </div>
+      </div>
+
+      <!-- Card 1: Anomaly Metrics & Score Gauges -->
+      <div class="rounded-xl border border-brand-border bg-brand-surface/40 p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded bg-brand-black text-white font-mono text-[11px] font-medium">WG-001</span>
+            <span class="text-xs font-semibold text-brand-black">Extreme Precipitation Index</span>
+          </div>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-red-100 text-brand-red border border-red-200 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-red"></span>
+            SEVERITY: RED (CRITICAL)
+          </span>
+        </div>
+
+        <!-- Metric Grid -->
+        <div class="grid grid-cols-3 gap-3 mb-3">
+          <div class="bg-white p-3 rounded-lg border border-brand-border">
+            <div class="text-[11px] text-brand-muted font-medium mb-1">EFI-Style Metric</div>
+            <div class="text-xl font-bold font-mono text-brand-black tracking-tight">0.94 <span class="text-xs font-normal text-brand-muted">/1.0</span></div>
+            <div class="text-[10px] font-mono text-brand-red mt-0.5">Top 0.5% Climatology</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-brand-border">
+            <div class="text-[11px] text-brand-muted font-medium mb-1">Track Spread (±σ)</div>
+            <div class="text-xl font-bold font-mono text-brand-black tracking-tight">±4.2 <span class="text-xs font-normal text-brand-muted">km</span></div>
+            <div class="text-[10px] font-mono text-brand-blue mt-0.5">Tight Ensemble Consensus</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-brand-border">
+            <div class="text-[11px] text-brand-muted font-medium mb-1">Est. Downscaled Area</div>
+            <div class="text-xl font-bold font-mono text-brand-black tracking-tight">680 <span class="text-xs font-normal text-brand-muted">km²</span></div>
+            <div class="text-[10px] font-mono text-brand-muted mt-0.5">27 High-Risk Cells</div>
+          </div>
+        </div>
+
+        <!-- Anomaly Gauge Bar -->
+        <div>
+          <div class="flex justify-between text-[11px] font-mono mb-1 text-brand-muted">
+            <span>CLIMATOLOGICAL EXTREME SHIFT</span>
+            <span class="text-brand-text font-semibold">T+18h Peak</span>
+          </div>
+          <div class="h-2 w-full bg-zinc-200 rounded-full overflow-hidden flex">
+            <div class="bg-brand-yellow h-full w-[25%]"></div>
+            <div class="bg-brand-orange h-full w-[35%]"></div>
+            <div class="bg-brand-red h-full w-[34%]"></div>
+            <div class="bg-zinc-300 h-full w-[6%]"></div>
+          </div>
+          <div class="flex justify-between text-[9px] font-mono text-brand-muted mt-1">
+            <span>Normal (0.0)</span>
+            <span>Unusual (0.6)</span>
+            <span>Severe (0.8)</span>
+            <span class="text-brand-red font-semibold">Historical Outlier (0.94)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Physics Validation Table -->
+      <div class="rounded-xl border border-brand-border bg-white p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.745 3.745 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+            </svg>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-brand-black">Physics Conservation Verification</h3>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-emerald-50 text-brand-green border border-emerald-200">
+            PINN SCORE: 98.2% CONVERGED
+          </span>
+        </div>
+
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="border-b border-brand-border text-[11px] font-mono text-brand-muted">
+              <th class="py-2 font-medium">CONSERVATION VARIABLE</th>
+              <th class="py-2 font-medium">RESIDUAL</th>
+              <th class="py-2 font-medium">TOLERANCE</th>
+              <th class="py-2 text-right font-medium">STATUS</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-100 font-mono text-[11px]">
+            <tr>
+              <td class="py-2.5 font-sans font-medium text-brand-text flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Moisture Flux Divergence
+              </td>
+              <td class="py-2.5 text-brand-text">0.012 kg/m²s</td>
+              <td class="py-2.5 text-brand-muted">&lt; 0.05</td>
+              <td class="py-2.5 text-right">
+                <span class="inline-flex items-center gap-1 text-brand-green font-semibold">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  PASS
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-sans font-medium text-brand-text flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Geostrophic Wind Balance
+              </td>
+              <td class="py-2.5 text-brand-text">0.34 m/s</td>
+              <td class="py-2.5 text-brand-muted">&lt; 1.20</td>
+              <td class="py-2.5 text-right">
+                <span class="inline-flex items-center gap-1 text-brand-green font-semibold">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  PASS
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-sans font-medium text-brand-text flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span> Hydrostatic Pressure Tendency
+              </td>
+              <td class="py-2.5 text-brand-text">0.8 hPa/hr</td>
+              <td class="py-2.5 text-brand-muted">&lt; 2.0</td>
+              <td class="py-2.5 text-right">
+                <span class="inline-flex items-center gap-1 text-brand-green font-semibold">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+                  PASS
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td class="py-2.5 font-sans font-medium text-brand-text flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-yellow"></span> Thermal Advection Laplacians
+              </td>
+              <td class="py-2.5 text-brand-text">1.82 K/100km</td>
+              <td class="py-2.5 text-brand-muted">&lt; 1.50</td>
+              <td class="py-2.5 text-right">
+                <span class="inline-flex items-center gap-1 text-brand-yellow font-semibold">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/></svg>
+                  FLAG (OROGRAPHIC)
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Card 3: Evidence-Linked AI Explainer Card (Violet Accent) -->
+      <div class="rounded-xl border border-violet-200 bg-violet-50/40 p-4">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <!-- Sparkles/Brain Icon -->
+            <div class="w-5 h-5 rounded bg-brand-violet flex items-center justify-center text-white">
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/>
+              </svg>
+            </div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-brand-violet">Meteorological Explainer (GNN + Attention)</h3>
+          </div>
+          <span class="text-[10px] font-mono text-brand-muted">CONFIDENCE: 91.4%</span>
+        </div>
+
+        <div class="space-y-3 text-xs leading-relaxed text-brand-text">
+          <!-- Evidence Sentence 1 -->
+          <div>
+            <p class="inline">Convective available potential energy exceeds historical seasonal thresholds by 3.8 standard deviations, concentrated along the Western Ghats windward slope.</p>
+            <span class="inline-flex items-center gap-1 ml-1 px-1.5 py-0.5 rounded bg-white border border-violet-200 text-brand-violet font-mono text-[10px] font-medium align-middle">
+              CAPE: 3420 J/kg
+            </span>
+          </div>
+
+          <!-- Evidence Sentence 2 -->
+          <div>
+            <p class="inline">Tropospheric moisture flux vector is locked orthogonally against terrain crests, driving persistent localized precipitation accumulation without cell dispersion.</p>
+            <span class="inline-flex items-center gap-1 ml-1 px-1.5 py-0.5 rounded bg-white border border-violet-200 text-brand-violet font-mono text-[10px] font-medium align-middle">
+              ERA5 P99.8
+            </span>
+            <span class="inline-flex items-center gap-1 ml-0.5 px-1.5 py-0.5 rounded bg-white border border-violet-200 text-brand-violet font-mono text-[10px] font-medium align-middle">
+              Duration: &gt;14h
+            </span>
+          </div>
+
+          <!-- Evidence Sentence 3 -->
+          <div>
+            <p class="inline">Ensemble spread across 50 members exhibits high spatial coherence with an anomaly score of 0.94 in the 5 km downscaled domain.</p>
+            <span class="inline-flex items-center gap-1 ml-1 px-1.5 py-0.5 rounded bg-white border border-violet-200 text-brand-violet font-mono text-[10px] font-medium align-middle">
+              EFI: 0.94
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-2 flex items-center justify-between border-t border-brand-border text-xs">
+        <button class="px-3 py-1.5 rounded-lg bg-brand-surface text-brand-text font-mono text-[11px] font-medium border border-brand-border hover:bg-zinc-200 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"/>
+          </svg>
+          Export Raw GeoJSON
+        </button>
+        <button class="px-3 py-1.5 rounded-lg bg-brand-black text-white font-medium hover:bg-zinc-800 transition flex items-center gap-1.5">
+          Issue Forecaster Advisory
+        </button>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- VARIANT B: CITIZEN MODE (Simple, Calm) -->
+    <!-- ========================================== -->
+    <section class="bg-white rounded-2xl border border-brand-border shadow-sm p-6 flex flex-col gap-6 relative overflow-hidden">
+      <!-- Variant Label / Header -->
+      <div class="flex items-center justify-between border-b border-brand-border pb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-brand-black flex items-center justify-center text-white">
+            <!-- User/Citizen icon -->
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-mono tracking-wider font-semibold text-brand-green">Variant B</span>
+              <h2 class="text-base font-bold text-brand-black">Citizen Mode</h2>
+            </div>
+            <p class="text-xs text-brand-muted">Clear, Localized & Plain-Language Action Guidance</p>
+          </div>
+        </div>
+
+        <!-- Language Switcher for Citizen View -->
+        <div class="inline-flex p-0.5 bg-brand-surface rounded-lg border border-brand-border text-xs">
+          <button class="px-2.5 py-1 rounded-md font-medium text-brand-black bg-white shadow-xs">English</button>
+          <button class="px-2.5 py-1 rounded-md text-brand-muted hover:text-brand-text">मराठी</button>
+          <button class="px-2.5 py-1 rounded-md text-brand-muted hover:text-brand-text">हिंदी</button>
+        </div>
+      </div>
+
+      <!-- Card 1: Large Plain-Language Risk Badge -->
+      <div class="rounded-xl border border-red-200 bg-red-50/60 p-5 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide bg-brand-red text-white flex items-center gap-1.5 shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            HIGH RISK ALERT
+          </span>
+          <span class="text-xs font-mono font-medium text-brand-red">Effective: Today & Tomorrow</span>
+        </div>
+
+        <div class="mt-2">
+          <h3 class="text-2xl font-bold text-brand-black tracking-tight">High Risk: Pune District</h3>
+          <p class="text-sm text-zinc-700 mt-2 leading-relaxed">
+            Extremely heavy rainfall is expected over the next 24 hours, with high likelihood of waterlogging in low-lying roads and hillside runoff.
+          </p>
+        </div>
+
+        <div class="mt-2 pt-3 border-t border-red-200/60 flex items-center justify-between text-xs text-brand-muted">
+          <span>Target Area: Haveli, Mulshi & Pune City</span>
+          <span class="font-mono text-[11px] text-zinc-500">Updated 15 mins ago</span>
+        </div>
+      </div>
+
+      <!-- Card 2: What Should I Do? Guidance Card -->
+      <div class="rounded-xl border border-brand-border bg-white p-5">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-6 h-6 rounded-full bg-brand-black text-white flex items-center justify-center">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"/>
+            </svg>
+          </div>
+          <h3 class="text-sm font-bold text-brand-black">What should I do right now?</h3>
+        </div>
+
+        <div class="space-y-3">
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-brand-surface/60 border border-brand-border">
+            <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-mono font-bold text-brand-black">1</div>
+            <div>
+              <p class="text-xs font-semibold text-brand-black">Avoid underground passes and flood-prone roads</p>
+              <p class="text-xs text-brand-muted mt-0.5">Stay away from Mutha riverbank bridges and low subway connectors during heavy spells.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-brand-surface/60 border border-brand-border">
+            <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-mono font-bold text-brand-black">2</div>
+            <div>
+              <p class="text-xs font-semibold text-brand-black">Charge emergency devices and backup batteries</p>
+              <p class="text-xs text-brand-muted mt-0.5">Keep phones, torchlights, and required medical devices ready in case of power interruption.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3 p-3 rounded-lg bg-brand-surface/60 border border-brand-border">
+            <div class="w-5 h-5 rounded-full bg-zinc-200 flex items-center justify-center shrink-0 mt-0.5 text-xs font-mono font-bold text-brand-black">3</div>
+            <div>
+              <p class="text-xs font-semibold text-brand-black">Follow local municipal advisories before commuting</p>
+              <p class="text-xs text-brand-muted mt-0.5">Check official Pune Municipal Corporation (PMC) school and transit notices before leaving home.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Citizen AI Quick Inquiry Prompt & Verified Footer -->
+      <div class="rounded-xl border border-brand-border bg-brand-surface/40 p-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-brand-violet"></span>
+            <span class="text-xs font-semibold text-brand-black">Ask Citizen AI</span>
+          </div>
+          <span class="text-[10px] font-mono text-brand-muted">VERIFIED DATA ONLY</span>
+        </div>
+
+        <!-- Quick Question Pills -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <button class="px-3 py-1.5 rounded-lg bg-white border border-brand-border text-xs text-brand-text hover:border-brand-blue hover:text-brand-blue transition text-left">
+            "Will it rain heavily near Shivaji Nagar tomorrow morning?"
+          </button>
+          <button class="px-3 py-1.5 rounded-lg bg-white border border-brand-border text-xs text-brand-text hover:border-brand-blue hover:text-brand-blue transition text-left">
+            "Is the Pune-Mumbai expressway safe for travel today?"
+          </button>
+        </div>
+
+        <div class="mt-3 pt-2.5 border-t border-brand-border/60 flex items-center justify-between text-[11px] text-brand-muted">
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-brand-green" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Based on verified WeatherGuard AI meteorological physics</span>
+          </div>
+          <span class="font-mono text-[10px]">No generative hallucinations</span>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-2 flex items-center justify-between border-t border-brand-border text-xs">
+        <button class="px-3 py-1.5 rounded-lg bg-brand-surface text-brand-text font-medium border border-brand-border hover:bg-zinc-200 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/>
+          </svg>
+          Share WhatsApp Alert
+        </button>
+        <button class="px-3 py-1.5 rounded-lg bg-brand-black text-white font-medium hover:bg-zinc-800 transition flex items-center gap-1.5">
+          Get Notification Updates
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Explanatory Design Specs Note at Bottom -->
+  <footer class="max-w-[1440px] mx-auto mt-10 pt-6 border-t border-brand-border flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs text-brand-muted">
+    <div class="flex items-center gap-4">
+      <span class="font-mono font-medium text-brand-text">WEATHERGUARD DESIGN SPECIFICATION:</span>
+      <span>Base canvas: #FFFFFF / #F8F9FA</span>
+      <span>Sidebar / Nav: #0A0A0A</span>
+      <span>Interactivity: #2563EB</span>
+      <span>AI / Attention: #7C3AED</span>
+      <span>PINN Physics Pass: #10B981</span>
+      <span>Severity Scale: #FACC15 → #F97316 → #DC2626</span>
+    </div>
+    <div class="font-mono text-[11px]">
+      Smart India Hackathon 2026 • Command Center Component Library
+    </div>
+  </footer>
+
+</body>
+</html>
